@@ -9,6 +9,12 @@
         <Authors>Marissa Sherman</Authors>
         <Description>A .NET Client for Scryfall.com</Description>
         <Copyright>2023</Copyright>
+        <PackageProjectUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall/blob/master/src/NugetSupport/LICENSE</PackageLicenseUrl>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall</RepositoryUrl>
+        <RepositoryType>Github</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,6 +22,14 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="System.Threading.RateLimiting" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\NugetSupport\icon.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+        <Link>icon.png</Link>
+      </None>
     </ItemGroup>
 
 </Project>
