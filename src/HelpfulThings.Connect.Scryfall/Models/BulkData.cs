@@ -15,7 +15,7 @@ public class BulkData
     [JsonProperty("description")] public string Description { get; set; }
     [JsonProperty("size")] public long Size { get; set; }
     [JsonProperty("download_uri")] public Uri DownloadUri { get; set; }
-    [JsonProperty("content_type")] public ContentType ContentType { get; set; }
+    [JsonProperty("content_type")] public string ContentType { get; set; }
     [JsonProperty("content_encoding")] public string ContentEncoding { get; set; }
 
     public BulkData()
@@ -25,7 +25,7 @@ public class BulkData
         Description = string.Empty;
         Size = 0;
         DownloadUri = new Uri(Constants.Localhost);
-        ContentType = new ContentType();
+        ContentType = string.Empty;
         ContentEncoding = string.Empty;
     }
 }
