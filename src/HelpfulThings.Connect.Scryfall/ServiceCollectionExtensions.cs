@@ -9,5 +9,6 @@ public static class ServiceCollectionExtensions
     public static void AddScryfallApi(this IServiceCollection collection)
     {
         collection.AddScoped<IScryfallApiClient, ScryfallApiClient>();
+        collection.AddScoped<IScryfallIoClient, ScryfallIoClient>();
     }
 }

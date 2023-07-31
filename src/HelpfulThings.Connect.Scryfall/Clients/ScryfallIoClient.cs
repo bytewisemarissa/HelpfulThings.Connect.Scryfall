@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace HelpfulThings.Connect.Scryfall.Clients;
 
-public class ScryfallIoClient
+public class ScryfallIoClient : IScryfallIoClient
 {
     private static readonly HttpClient IoClient;
 
@@ -32,7 +32,7 @@ public class ScryfallIoClient
         }
     }
 
-    public async Task MakeNonMeteredImageRequest(
+    public async Task MakeNonMeteredRequest(
         Uri uri,
         IProgress<ScryfallIoProgress> progress, 
         Stream destination,
