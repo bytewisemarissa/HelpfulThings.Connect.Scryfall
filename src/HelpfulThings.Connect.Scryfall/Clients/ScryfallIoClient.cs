@@ -49,23 +49,8 @@ public class ScryfallIoClient : IScryfallIoClient
         if (!destination.CanWrite)
             throw new ArgumentException("Has to be writable", nameof(destination));
         
-        progress.Report(new ScryfallIoProgress()
+        using (var response = await IoClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead))
         {
-            DownloadedBytes = 0,
-            TotalBytes = 0,
-            Message = "Making request"
-        });
-        
-        using (var response = await IoClient.GetAsync(uri, cancellationToken))
-        {
-            progress.Report(new ScryfallIoProgress()
-            {
-                DownloadedBytes = 0,
-                TotalBytes = 0,
-                Message = "Ensuring successful connection"
-            });
-            
-            response.EnsureSuccessStatusCode();
 
             var contentLength = response.Content.Headers.ContentLength;
 
@@ -74,16 +59,8 @@ public class ScryfallIoClient : IScryfallIoClient
                 throw new NullReferenceException("Content length was not provided.");
             }
 
-            progress.Report(new ScryfallIoProgress()
-            {
-                DownloadedBytes = 0,
-                TotalBytes = 0,
-                Message = "Starting download"
-            });
-            
             using (var download = await response.Content.ReadAsStreamAsync(cancellationToken))
             {
-
                 var buffer = new byte[1024];
                 long totalBytesRead = 0;
                 int bytesRead;
