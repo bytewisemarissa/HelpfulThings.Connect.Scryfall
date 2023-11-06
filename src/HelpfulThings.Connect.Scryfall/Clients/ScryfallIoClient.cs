@@ -54,7 +54,7 @@ public class ScryfallIoClient : IScryfallIoClient
         {
             using (var download = await response.Content.ReadAsStreamAsync(cancellationToken))
             {
-                var buffer = new byte[524288];
+                var buffer = new byte[2100000];
                 long totalBytesRead = 0;
                 int bytesRead;
                 while ((bytesRead =
@@ -74,12 +74,6 @@ public class ScryfallIoClient : IScryfallIoClient
                         {
                             DownloadedBytes = totalBytesRead,
                             Message = "Downloading"
-                        });
-
-                        Task.Run(async () =>
-                        {
-                            await Task.Delay(1000);
-                            _fireAlert = true;
                         });
 
                         _fireAlert = false;
