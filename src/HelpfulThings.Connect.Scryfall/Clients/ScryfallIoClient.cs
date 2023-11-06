@@ -5,6 +5,7 @@ namespace HelpfulThings.Connect.Scryfall.Clients;
 public class ScryfallIoClient : IScryfallIoClient
 {
     private static readonly HttpClient IoClient;
+    private static bool _fireAlert = true;
 
     static ScryfallIoClient()
     {
@@ -64,13 +65,25 @@ public class ScryfallIoClient : IScryfallIoClient
                                    cancellationToken)
                                .ConfigureAwait(false)) != 0)
                 {
-                    await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken).ConfigureAwait(false);
-                    totalBytesRead += bytesRead;
-                    progress?.Report(new ScryfallIoProgress()
+
+                    if (_fireAlert)
                     {
-                        DownloadedBytes = totalBytesRead,
-                        Message = "Downloading"
-                    });
+                        await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken).ConfigureAwait(false);
+                        totalBytesRead += bytesRead;
+                        progress?.Report(new ScryfallIoProgress()
+                        {
+                            DownloadedBytes = totalBytesRead,
+                            Message = "Downloading"
+                        });
+
+                        Task.Run(async () =>
+                        {
+                            await Task.Delay(1000);
+                            _fireAlert = true;
+                        });
+
+                        _fireAlert = false;
+                    }
                 }
             }
         }
