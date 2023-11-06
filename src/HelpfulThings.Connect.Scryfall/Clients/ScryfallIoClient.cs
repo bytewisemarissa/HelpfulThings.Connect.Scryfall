@@ -53,7 +53,7 @@ public class ScryfallIoClient : IScryfallIoClient
         {
             using (var download = await response.Content.ReadAsStreamAsync(cancellationToken))
             {
-                var buffer = new byte[1000000];
+                var buffer = new byte[15000000];
                 long totalBytesRead = 0;
                 int bytesRead;
                 while ((bytesRead =
