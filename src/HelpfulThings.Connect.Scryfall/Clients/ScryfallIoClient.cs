@@ -51,14 +51,6 @@ public class ScryfallIoClient : IScryfallIoClient
         
         using (var response = await IoClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead))
         {
-
-            var contentLength = response.Content.Headers.ContentLength;
-
-            if (contentLength is null)
-            {
-                throw new NullReferenceException("Content length was not provided.");
-            }
-
             using (var download = await response.Content.ReadAsStreamAsync(cancellationToken))
             {
                 var buffer = new byte[1024];
@@ -77,7 +69,6 @@ public class ScryfallIoClient : IScryfallIoClient
                     progress?.Report(new ScryfallIoProgress()
                     {
                         DownloadedBytes = totalBytesRead,
-                        TotalBytes = contentLength.Value,
                         Message = "Downloading"
                     });
                 }
