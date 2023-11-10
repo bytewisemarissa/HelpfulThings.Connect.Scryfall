@@ -10,4 +10,5 @@ public enum Colors
     [EnumMember(Value = "B")] [Description("Swamp")] Black,
     [EnumMember(Value = "R")] [Description("Mountain")] Red,
     [EnumMember(Value = "G")] [Description("Forest")] Green,
+    [EnumMember(Value = "C")] [Description("Colorless")] Colorless,
 }
