@@ -33,4 +33,5 @@ public enum PromoTypes
     [EnumMember(Value = "arenaleague")] [Description("Arena League")] ArenaLeague = 25,
     [EnumMember(Value = "rebalanced")] [Description("Rebalanced")] Rebalanced = 26,
     [EnumMember(Value = "convention")] [Description("convention")] Convention = 27,
+    [EnumMember(Value = "textured")] [Description("textured")] Textured = 28,
 }
