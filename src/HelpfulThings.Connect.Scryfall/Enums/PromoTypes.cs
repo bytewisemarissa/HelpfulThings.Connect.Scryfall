@@ -30,5 +30,6 @@ public enum PromoTypes
     [EnumMember(Value = "alchemy")] [Description("Alchemy")] Alchemy = 22,
     [EnumMember(Value = "godzillaseries")] [Description("Godzilla Series")] Godzilla = 23,
     [EnumMember(Value = "starterdeck")] [Description("Starter Deck")] StarterDeck = 24,
-    [EnumMember(Value = "arenaleague")] [Description("Arena League")] ArenaLeague = 25
+    [EnumMember(Value = "arenaleague")] [Description("Arena League")] ArenaLeague = 25,
+    [EnumMember(Value = "rebalanced")] [Description("Rebalanced")] Rebalanced = 26,
 }
