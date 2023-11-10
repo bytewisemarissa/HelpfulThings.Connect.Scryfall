@@ -16,7 +16,7 @@ public enum PromoTypes
     [EnumMember(Value = "prerelease")] [Description("Pre-release")] PreRelease = 8,
     [EnumMember(Value = "datestamped")] [Description("Date Stamped")] DateStamped = 9,
     [EnumMember(Value = "surgefoil")] [Description("Surge Foil")] SurgeFoil = 10,
-    [EnumMember(Value = "schinesealtart")] [Description("Schinesealt Art")] SafeChineseAltArt = 11,
+    [EnumMember(Value = "schinesealtart")] [Description("Safe Chinese Alt Art")] SafeChineseAltArt = 11,
     [EnumMember(Value = "event")] [Description("Event")] Event = 12,
     [EnumMember(Value = "tourney")] [Description("Tournement")] Tourney = 13,
     [EnumMember(Value = "fnm")] [Description("Friday Night Magic")] Fnm = 14,
