@@ -5,10 +5,10 @@ namespace HelpfulThings.Connect.Scryfall.Enums;
 
 public enum CardRarities
 {
-    [EnumMember(Value = "common")] Common,
-    [EnumMember(Value = "uncommon")] Uncommon,
-    [EnumMember(Value = "rare")] Rare,
-    [EnumMember(Value = "special")] Special,
-    [EnumMember(Value = "mythic")] Mythic,
-    [EnumMember(Value = "bonus")] Bonus,
+    [EnumMember(Value = "common")] Common = 0,
+    [EnumMember(Value = "uncommon")] Uncommon = 1,
+    [EnumMember(Value = "rare")] Rare = 2,
+    [EnumMember(Value = "special")] Special = 3,
+    [EnumMember(Value = "mythic")] Mythic = 4,
+    [EnumMember(Value = "bonus")] Bonus = 5,
 }

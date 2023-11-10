@@ -8,7 +8,7 @@ namespace HelpfulThings.Connect.Scryfall.Models;
 public class Card
 {
     [JsonProperty("set_id")] public Guid ScryfallSetId { get; set; }
-    [JsonProperty("arena_id")] public int ArenaId { get; set; }
+    [JsonProperty("arena_id")] public int? ArenaId { get; set; }
     [JsonProperty("id")] public Guid ScryfallId { get; set; }
     [JsonProperty("lang")] public string Language { get; set; }
     [JsonProperty("mtgo_id")] public int? MtgoId { get; set; }
@@ -41,7 +41,7 @@ public class Card
     [JsonProperty("oversized")] public bool Oversized { get; set; }
     [JsonProperty("penny_rank")] public int? PennyDreadfulRank { get; set; }
     [JsonProperty("power")] public string? Power { get; set; }
-    [JsonProperty("produced_mana")] public Colors[] ProducedMana { get; set; }
+    [JsonProperty("produced_mana")] public Colors[]? ProducedMana { get; set; }
     [JsonProperty("reserved")] public bool ReserveList { get; set; }
     [JsonProperty("foil")] public bool Foil { get; set; }
     [JsonProperty("nonfoil")] public bool NonFoil { get; set; }
@@ -86,7 +86,7 @@ public class Card
     [JsonProperty("story_spotlight")] public bool StorySpotlight { get; set; }
     [JsonProperty("textless")] public bool Textless { get; set; }
     [JsonProperty("variation")] public bool Variation { get; set; }
-    [JsonProperty("variation_of")] public Guid VariationOf { get; set; }
+    [JsonProperty("variation_of")] public Guid? VariationOf { get; set; }
     [JsonProperty("security_stamp")] public SecurityStamps SecurityStamp { get; set; }
     [JsonProperty("watermark")] public string? Watermark { get; set; }
     [JsonProperty("preview.previewed_at")] public DateOnly? PreviewedAt { get; set; }
@@ -106,7 +106,6 @@ public class Card
         Colors = Array.Empty<Colors>();
         Keywords = Array.Empty<string>();
         Legalities = new FormatLegalities();
-        ProducedMana = Array.Empty<Colors>();
         TypeLine = string.Empty;
         ArtistIds = Array.Empty<Guid>();
         AttractionLights = Array.Empty<int>();

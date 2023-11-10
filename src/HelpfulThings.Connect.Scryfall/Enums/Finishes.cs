@@ -4,7 +4,7 @@ namespace HelpfulThings.Connect.Scryfall.Enums;
 
 public enum Finishes
 {
-    [EnumMember(Value = "foil")] Foil,
-    [EnumMember(Value = "nonfoil")] NonFoil,
-    [EnumMember(Value = "etched")] Etched
+    [EnumMember(Value = "foil")] Foil = 0,
+    [EnumMember(Value = "nonfoil")] NonFoil = 1,
+    [EnumMember(Value = "etched")] Etched = 2
 }

@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using HelpfulThings.Connect.Scryfall.Enums;
 using Newtonsoft.Json;
 
