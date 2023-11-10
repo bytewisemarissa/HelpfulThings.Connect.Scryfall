@@ -26,5 +26,6 @@ public enum PromoTypes
     [EnumMember(Value = "bundle")] Bundle = 19,
     [EnumMember(Value = "halofoil")] HaloFoil = 20,
     [EnumMember(Value = "galaxyfoil")] GalaxyFoil = 21,
-    [EnumMember(Value = "alchemy")] Alchemy = 22
+    [EnumMember(Value = "alchemy")] Alchemy = 22,
+    [EnumMember(Value = "godzillaseries")] Godzilla = 23,
 }
