@@ -28,7 +28,7 @@ public class CardFaceConverter : Newtonsoft.Json.JsonConverter<CardFace>
                 return semiParsed.ToObject<CardFace>();
         }
 
-        var intermediate = semiParsed.ToObject<CardFaceWithSingleImageUri>();
+        var intermediate = semiParsed.ToObject<CardFace>();
 
         if (intermediate is null)
         {
@@ -43,7 +43,7 @@ public class CardFaceConverter : Newtonsoft.Json.JsonConverter<CardFace>
             Colors = intermediate.Colors,
             FlavorText = intermediate.FlavorText,
             IllustrationId = intermediate.IllustrationId,
-            ImageUris = new[] { intermediate.ImageUris },
+            ImageUris = intermediate.ImageUris,
             Layout = intermediate.Layout,
             Loyalty = intermediate.Loyalty,
             ManaCost = intermediate.ManaCost,
@@ -58,15 +58,5 @@ public class CardFaceConverter : Newtonsoft.Json.JsonConverter<CardFace>
             TypeLine = intermediate.TypeLine,
             Watermark = intermediate.Watermark
         };
-    }
-    
-    private class CardFaceWithSingleImageUri : CardFace
-    {
-        [JsonPropertyName("image_uris")] public new Uri ImageUris { get; set; }
-
-        public CardFaceWithSingleImageUri()
-        {
-            ImageUris = new Uri(string.Empty);
-        }
     }
 }

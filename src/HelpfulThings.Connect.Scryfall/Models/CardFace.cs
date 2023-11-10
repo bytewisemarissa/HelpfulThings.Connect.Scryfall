@@ -12,7 +12,7 @@ public class CardFace
     [JsonProperty("colors")] public Colors[] Colors { get; set; }
     [JsonProperty("flavor_text")] public string? FlavorText { get; set; }
     [JsonProperty("illustration_id")] public Guid? IllustrationId { get; set; }
-    [JsonProperty("image_uris")] public Uri[] ImageUris { get; set; }
+    [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; }
     [JsonProperty("layout")] public string? Layout { get; set; }
     [JsonProperty("loyalty")] public string Loyalty { get; set; }
     [JsonProperty("mana_cost")] public string ManaCost { get; set; }
@@ -34,6 +34,6 @@ public class CardFace
         Loyalty = string.Empty;
         ManaCost = string.Empty;
         Name = string.Empty;
-        ImageUris = Array.Empty<Uri>();
+        ImageUris = new ImageUris();
     } 
 }
