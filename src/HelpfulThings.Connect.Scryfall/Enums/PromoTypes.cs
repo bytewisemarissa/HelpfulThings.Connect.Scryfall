@@ -40,5 +40,6 @@ public enum PromoTypes
     [EnumMember(Value = "serialized")] [Description("Serialized")] Serialized = 31,
     [EnumMember(Value = "doublerainbow")] [Description("Double Rainbow")] DoubleRainbow = 32,
     [EnumMember(Value = "premiereshop")] [Description("Premiere Shop")] PremiereShop = 33,
+    [EnumMember(Value = "confettifoil")] [Description("Confetti Foil")] ConfettiFoil = 34,
     
 }
