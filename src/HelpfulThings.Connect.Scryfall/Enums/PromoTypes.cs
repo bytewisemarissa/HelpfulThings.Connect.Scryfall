@@ -45,4 +45,5 @@ public enum PromoTypes
     [EnumMember(Value = "boxtopper")] [Description("Box Topper")] boxtopper = 36,
     [EnumMember(Value = "stepandcompleat")] [Description("Step and Compleat")] StepAndCompleat = 37,
     [EnumMember(Value = "intropack")] [Description("Intro Pack")] IntroPack = 38,
+    [EnumMember(Value = "silverfoil")] [Description("Silver Foil")] SilverFoil = 39,
 }
