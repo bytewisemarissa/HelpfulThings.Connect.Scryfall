@@ -54,4 +54,5 @@ public enum PromoTypes
     [EnumMember(Value = "duels")] [Description("Duels")] Duels = 45,
     [EnumMember(Value = "gilded")] [Description("Gilded")] Gilded = 46,
     [EnumMember(Value = "neonink")] [Description("Neon Ink")] NeonInk = 47,
+    [EnumMember(Value = "jpwalker")] [Description("JP Walker")] JpWalker = 48,
 }
