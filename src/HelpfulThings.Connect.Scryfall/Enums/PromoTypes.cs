@@ -42,5 +42,5 @@ public enum PromoTypes
     [EnumMember(Value = "premiereshop")] [Description("Premiere Shop")] PremiereShop = 33,
     [EnumMember(Value = "confettifoil")] [Description("Confetti Foil")] ConfettiFoil = 34,
     [EnumMember(Value = "wizardsplaynetwork")] [Description("Wizard's Play Network")] WizardsPlayNetwork = 35,
-    
+    [EnumMember(Value = "boxtopper")] [Description("Box Topper")] boxtopper = 36,
 }
