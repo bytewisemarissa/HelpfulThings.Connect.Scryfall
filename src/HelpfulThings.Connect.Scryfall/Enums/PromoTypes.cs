@@ -37,4 +37,5 @@ public enum PromoTypes
     [EnumMember(Value = "judgegift")] [Description("Judge Gift")] JudgeGift = 28,
     [EnumMember(Value = "embossed")] [Description("Embossed")] Embossed = 29,
     [EnumMember(Value = "instore")] [Description("In Store")] InStore = 30,
+    [EnumMember(Value = "serialized")] [Description("In Store")] Serialized = 31,
 }
