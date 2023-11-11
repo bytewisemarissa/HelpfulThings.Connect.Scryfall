@@ -57,4 +57,5 @@ public enum PromoTypes
     [EnumMember(Value = "jpwalker")] [Description("JP Walker")] JpWalker = 48,
     [EnumMember(Value = "moonlitland")] [Description("Moon Lit Land")] MoonLitLand = 49,
     [EnumMember(Value = "plastic")] [Description("Plastic")] Plastic = 50,
+    [EnumMember(Value = "playpromo")] [Description("Play Promo")] PlayPromo = 51,
 }
