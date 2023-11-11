@@ -48,4 +48,5 @@ public enum PromoTypes
     [EnumMember(Value = "silverfoil")] [Description("Silver Foil")] SilverFoil = 39,
     [EnumMember(Value = "oilslick")] [Description("Oil Slick")] OilSlick = 40,
     [EnumMember(Value = "brawldeck")] [Description("Brawl Deck")] BrawlDeck = 41,
+    [EnumMember(Value = "thick")] [Description("Thick")] Thick = 42,
 }
