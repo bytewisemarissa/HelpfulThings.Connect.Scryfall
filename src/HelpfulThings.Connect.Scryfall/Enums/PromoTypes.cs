@@ -35,4 +35,5 @@ public enum PromoTypes
     [EnumMember(Value = "convention")] [Description("convention")] Convention = 27,
     [EnumMember(Value = "textured")] [Description("textured")] Textured = 28,
     [EnumMember(Value = "judgegift")] [Description("Judge Gift")] JudgeGift = 28,
+    [EnumMember(Value = "embossed")] [Description("Embossed")] Embossed = 29,
 }
