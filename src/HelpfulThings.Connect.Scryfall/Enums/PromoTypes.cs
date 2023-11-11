@@ -44,4 +44,5 @@ public enum PromoTypes
     [EnumMember(Value = "wizardsplaynetwork")] [Description("Wizard's Play Network")] WizardsPlayNetwork = 35,
     [EnumMember(Value = "boxtopper")] [Description("Box Topper")] boxtopper = 36,
     [EnumMember(Value = "stepandcompleat")] [Description("Step and Compleat")] StepAndCompleat = 37,
+    [EnumMember(Value = "fullart")] [Description("Full Art")] FullArt = 37,
 }
