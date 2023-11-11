@@ -5,9 +5,9 @@ namespace HelpfulThings.Connect.Scryfall.Enums;
 
 public enum BorderColors
 {
-    [EnumMember(Value = "black")] Black = 0,
-    [EnumMember(Value = "white")] White = 1,
-    [EnumMember(Value = "borderless")] Borderless = 2,
-    [EnumMember(Value = "silver")] Silver = 3,
-    [EnumMember(Value = "gold")] Gold = 4,
+    [EnumMember(Value = "black")] Black = 1,
+    [EnumMember(Value = "white")] White = 2,
+    [EnumMember(Value = "borderless")] Borderless = 3,
+    [EnumMember(Value = "silver")] Silver = 4,
+    [EnumMember(Value = "gold")] Gold = 5,
 }

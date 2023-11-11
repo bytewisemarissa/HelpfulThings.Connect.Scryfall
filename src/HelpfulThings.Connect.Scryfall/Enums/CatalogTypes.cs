@@ -4,20 +4,20 @@ namespace HelpfulThings.Connect.Scryfall.Enums;
 
 public enum CatalogTypes
 {
-    [EnumMember(Value = "card-names")] CardNames,
-    [EnumMember(Value = "artist-names")] ArtistNames,
-    [EnumMember(Value = "word-bank")] WordBank,
-    [EnumMember(Value = "creature-types")] CreatureTypes,
-    [EnumMember(Value = "planeswalker-types")] PlaneswalkerTypes,
-    [EnumMember(Value = "land-types")] LandTypes,
-    [EnumMember(Value = "artifact-types")] ArtifactTypes,
-    [EnumMember(Value = "enchantment-types")] EnchantmentTypes,
-    [EnumMember(Value = "spell-types")] SpellTypes,
-    [EnumMember(Value = "powers")] Powers,
-    [EnumMember(Value = "toughnesses")] Toughnesses,
-    [EnumMember(Value = "loyalties")] Loyalties,
-    [EnumMember(Value = "watermarks")] Watermarks,
-    [EnumMember(Value = "keyword-abilities")] KeywordAbilities,
-    [EnumMember(Value = "keyword-actions")] KeywordActions,
-    [EnumMember(Value = "ability-words")] AbilityWords
+    [EnumMember(Value = "card-names")] CardNames = 1,
+    [EnumMember(Value = "artist-names")] ArtistNames = 2,
+    [EnumMember(Value = "word-bank")] WordBank = 3,
+    [EnumMember(Value = "creature-types")] CreatureTypes = 4,
+    [EnumMember(Value = "planeswalker-types")] PlaneswalkerTypes = 5,
+    [EnumMember(Value = "land-types")] LandTypes = 6,
+    [EnumMember(Value = "artifact-types")] ArtifactTypes = 7,
+    [EnumMember(Value = "enchantment-types")] EnchantmentTypes = 8,
+    [EnumMember(Value = "spell-types")] SpellTypes = 9,
+    [EnumMember(Value = "powers")] Powers = 10,
+    [EnumMember(Value = "toughnesses")] Toughnesses = 11,
+    [EnumMember(Value = "loyalties")] Loyalties = 12,
+    [EnumMember(Value = "watermarks")] Watermarks = 13,
+    [EnumMember(Value = "keyword-abilities")] KeywordAbilities = 14,
+    [EnumMember(Value = "keyword-actions")] KeywordActions = 15,
+    [EnumMember(Value = "ability-words")] AbilityWords = 16
 }
