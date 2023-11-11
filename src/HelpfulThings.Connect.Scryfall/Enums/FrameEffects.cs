@@ -29,4 +29,5 @@ public enum FrameEffects
     [EnumMember(Value = "fandfc")] [Description("Fan")] Fan = 22,
     [EnumMember(Value = "upsidedowndfc")] [Description("Upside Down")] UpsideDown = 23,
     [EnumMember(Value = "fullart")] [Description("Full Art")] FullArt = 24,
+    [EnumMember(Value = "vehicle")] [Description("Vehicle")] Vehicle = 25,
 }
