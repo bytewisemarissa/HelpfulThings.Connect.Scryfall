@@ -8,4 +8,5 @@ public enum Games
     [EnumMember(Value = "arena")] Arena = 1,
     [EnumMember(Value = "mtgo")] Mtgo = 2,
     [EnumMember(Value = "sega")] Sega = 3,
+    [EnumMember(Value = "astral")] Astral = 4,
 }
