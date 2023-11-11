@@ -51,5 +51,6 @@ public enum PromoTypes
     [EnumMember(Value = "thick")] [Description("Thick")] Thick = 42,
     [EnumMember(Value = "giftbox")] [Description("Gift Box")] GiftBox = 43,
     [EnumMember(Value = "league")] [Description("League")] League = 44,
-    [EnumMember(Value = "duels")] [Description("duels")] Duels = 45,
+    [EnumMember(Value = "duels")] [Description("Duels")] Duels = 45,
+    [EnumMember(Value = "gilded")] [Description("Gilded")] Gilded = 46,
 }
