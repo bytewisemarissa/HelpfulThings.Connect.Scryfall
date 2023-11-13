@@ -63,4 +63,8 @@ public enum PromoTypes
     [EnumMember(Value = "openhouse")] [Description("Open House")] OpenHouse = 56,
     [EnumMember(Value = "glossy")] [Description("Glossy")] Glossy = 57,
     [EnumMember(Value = "setextension")] [Description("Set Extension")] SetExtension = 58,
+    [EnumMember(Value = "bringafrind")] [Description("Bring a Friend")] BringAFriend = 59,
+    [EnumMember(Value = "concept")] [Description("Concept")] Concept = 60,
+    [EnumMember(Value = "draftweekend")] [Description("Draft Weekend")] DraftWeekend = 61,
+    [EnumMember(Value = "OK")] [Description("OK")] OK = 62,
 }
