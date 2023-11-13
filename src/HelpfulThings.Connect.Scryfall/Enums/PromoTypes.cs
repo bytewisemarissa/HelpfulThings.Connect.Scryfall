@@ -62,4 +62,5 @@ public enum PromoTypes
     [EnumMember(Value = "commanderparty")] [Description("Commander Party")] CommanderParty = 55,
     [EnumMember(Value = "openhouse")] [Description("Open House")] OpenHouse = 56,
     [EnumMember(Value = "glossy")] [Description("Glossy")] Glossy = 57,
+    [EnumMember(Value = "setextension")] [Description("Set Extension")] SetExtension = 58,
 }

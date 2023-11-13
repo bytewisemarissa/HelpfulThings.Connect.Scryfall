@@ -72,7 +72,7 @@ public class Card
     [JsonProperty("printed_text")] public string? PrintedText { get; set; }
     [JsonProperty("printed_type_line")] public string? PrintedTypeLine { get; set; }
     [JsonProperty("promo")] public bool Promo { get; set; }
-    [JsonProperty("promo_types")] public PromoTypes[]? PromoTypes { get; set; }
+    [JsonProperty("promo_types")] public string[]? PromoTypes { get; set; }
     [JsonProperty("purchase_uris")] public PurchaseUris PurchaseUris { get; set; }
     [JsonProperty("rarity")] public CardRarities Rarity { get; set; }
     [JsonProperty("related_uris")] public RelatedUris RelatedUris { get; set; }
