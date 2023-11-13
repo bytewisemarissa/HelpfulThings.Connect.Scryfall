@@ -30,4 +30,5 @@ public enum FrameEffects
     [EnumMember(Value = "upsidedowndfc")] [Description("Upside Down")] UpsideDown = 23,
     [EnumMember(Value = "fullart")] [Description("Full Art")] FullArt = 24,
     [EnumMember(Value = "vehicle")] [Description("Vehicle")] Vehicle = 25,
+    [EnumMember(Value = "textless")] [Description("Textless")] Textless = 26,
 }
