@@ -6,9 +6,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddScryfallApi(this IServiceCollection collection)
+    public static IServiceCollection AddScryfallApi(this IServiceCollection collection)
     {
         collection.AddScoped<IScryfallApiClient, ScryfallApiClient>();
         collection.AddScoped<IScryfallIoClient, ScryfallIoClient>();
+
+        return collection;
     }
 }
