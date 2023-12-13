@@ -67,4 +67,5 @@ public enum PromoTypes
     [EnumMember(Value = "concept")] [Description("Concept")] Concept = 60,
     [EnumMember(Value = "draftweekend")] [Description("Draft Weekend")] DraftWeekend = 61,
     [EnumMember(Value = "OK")] [Description("OK")] OK = 62,
+    [EnumMember(Value = "poster")] [Description("Poster")] Poster = 63,
 }
