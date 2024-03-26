@@ -28,5 +28,5 @@ jobs:
     - name: Build
       run: dotnet build --no-restore -c Release
     - name: Publish NuGet
-      run: dotnet nuget push src/HelpfulThings.Connect.Scryfall/bin/Release/*.nuget -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push HelpfulThings.Connect.Scryfall/bin/Release/*.nuget -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json
                 
