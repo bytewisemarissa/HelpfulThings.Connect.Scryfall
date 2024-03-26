@@ -30,7 +30,7 @@ jobs:
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
-        PROJECT_FILE_PATH: "/src/HelpfulThings.Connect.Scryfall/"
+        PROJECT_FILE_PATH: "src/HelpfulThings.Connect.Scryfall/HelpfulThings.Connect.Scryfall.csproj"
         PACKAGE_NAME: "HelpfulThings.Connect.Scryfall"
         NUGET_KEY: ${{ secrets.NUGETKEY }}
                 
