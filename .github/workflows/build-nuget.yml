@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Package
-      run: dotnet pack -c Release -o . src/HelpfulThings.Connect.Scryfall/HelpfulThings.Connect.Scryfall.csproj
+      run: dotnet pack -c Release -o . HelpfulThings.Connect.Scryfall/HelpfulThings.Connect.Scryfall.csproj
     - name: Publish NuGet
       run: dotnet nuget push *.nuget -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json
                 
