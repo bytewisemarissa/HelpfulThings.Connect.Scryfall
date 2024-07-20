@@ -61,7 +61,7 @@ public static class TestCards
             Commander = Legalities.Banned,
             Oathbreaker = Legalities.Banned,
             Brawl = Legalities.NotLegal,
-            HistoricBrawl = Legalities.NotLegal,
+            StandardBrawl = Legalities.NotLegal,
             Alchemy = Legalities.NotLegal,
             PauperCommander = Legalities.NotLegal,
             Duel = Legalities.Banned,
@@ -115,21 +115,21 @@ public static class TestCards
             Usd = null,
             UsdFoil = null,
             UsdEtched = null,
-            Eur = "5000.00",
+            Eur = "12880.60",
             EurFoil = null,
-            Tix = "266.23"
+            Tix = "471.25"
         },
         RelatedUris = new RelatedUris()
         {
-            Gatherer = new Uri("https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3"),
-            TcgPlayerInfiniteArticles = new Uri("https://infinite.tcgplayer.com/search?contentMode=article&game=magic&partner=scryfall&q=Black+Lotus&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
-            TcgPlayerInfiniteDecks = new Uri("https://infinite.tcgplayer.com/search?contentMode=deck&game=magic&partner=scryfall&q=Black+Lotus&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
+            Gatherer = new Uri("https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=3&printed=false"),
+            TcgPlayerInfiniteArticles = new Uri("https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Darticle%26game%3Dmagic%26partner%3Dscryfall%26q%3DBlack%2BLotus"),
+            TcgPlayerInfiniteDecks = new Uri("https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Ddeck%26game%3Dmagic%26partner%3Dscryfall%26q%3DBlack%2BLotus"),
             Edhrec = new Uri("https://edhrec.com/route/?cc=Black+Lotus")
         },
         PurchaseUris = new PurchaseUris()
         {
-            TcgPlayer = new Uri("https://www.tcgplayer.com/product/1042?page=1&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
-            CardMarket = new Uri("https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Black+Lotus&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall"),
+            TcgPlayer = new Uri("https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F1042%3Fpage%3D1"),
+            CardMarket = new Uri("https://www.cardmarket.com/en/Magic/Products/Singles/Alpha/Black-Lotus?referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall"),
             CardHoarder = new Uri("https://www.cardhoarder.com/cards/347?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall")
         }
     };
@@ -204,7 +204,7 @@ public static class TestCards
             Commander = Legalities.Legal,
             Oathbreaker = Legalities.Legal,
             Brawl = Legalities.NotLegal,
-            HistoricBrawl = Legalities.NotLegal,
+            StandardBrawl = Legalities.NotLegal,
             Alchemy = Legalities.NotLegal,
             PauperCommander = Legalities.NotLegal,
             Duel = Legalities.Restricted,
@@ -255,34 +255,34 @@ public static class TestCards
         Textless = false,
         FoundInBoosters = false,
         StorySpotlight = false,
-        EdhrecRank = 2947,
+        EdhrecRank = 3163,
         Prices = new CardPrices()
         {
             Usd = null,
-            UsdFoil = "2.79",
+            UsdFoil = "13.91",
             UsdEtched = null,
             Eur = null,
-            EurFoil = "3.81",
+            EurFoil = "3.90",
             Tix = null
         },
         RelatedUris = new RelatedUris()
         {
-            Gatherer = new Uri("https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430395"),
+            Gatherer = new Uri("https://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=430395&printed=false"),
             TcgPlayerInfiniteArticles =
                 new Uri(
-                    "https://infinite.tcgplayer.com/search?contentMode=article&game=magic&partner=scryfall&q=Derevi%2C+Empyrial+Tactician&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
+                    "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Darticle%26game%3Dmagic%26partner%3Dscryfall%26q%3DDerevi%252C%2BEmpyrial%2BTactician"),
             TcgPlayerInfiniteDecks =
                 new Uri(
-                    "https://infinite.tcgplayer.com/search?contentMode=deck&game=magic&partner=scryfall&q=Derevi%2C+Empyrial+Tactician&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
+                    "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&trafcat=infinite&u=https%3A%2F%2Finfinite.tcgplayer.com%2Fsearch%3FcontentMode%3Ddeck%26game%3Dmagic%26partner%3Dscryfall%26q%3DDerevi%252C%2BEmpyrial%2BTactician"),
             Edhrec = new Uri("https://edhrec.com/route/?cc=Derevi%2C+Empyrial+Tactician")
         },
         PurchaseUris = new PurchaseUris()
         {
             TcgPlayer = new Uri(
-                "https://www.tcgplayer.com/product/131911?page=1&utm_campaign=affiliate&utm_medium=api&utm_source=scryfall"),
+                "https://tcgplayer.pxf.io/c/4931599/1830156/21018?subId1=api&u=https%3A%2F%2Fwww.tcgplayer.com%2Fproduct%2F131911%3Fpage%3D1"),
             CardMarket =
                 new Uri(
-                    "https://www.cardmarket.com/en/Magic/Products/Search?referrer=scryfall&searchString=Derevi%2C+Empyrial+Tactician&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall"),
+                    "https://www.cardmarket.com/en/Magic/Products/Singles/Commander-Anthology/Derevi-Empyrial-Tactician?referrer=scryfall&utm_campaign=card_prices&utm_medium=text&utm_source=scryfall"),
             CardHoarder =
                 new Uri(
                     "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Derevi%2C+Empyrial+Tactician&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall")

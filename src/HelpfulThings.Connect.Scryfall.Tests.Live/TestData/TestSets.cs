@@ -19,11 +19,13 @@ public static class TestSets
             "https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=e%3Acmm&unique=prints"),
         ReleasedAt = Convert.ToDateTime("2023-08-04"),
         SetType = SetTypes.Masters,
-        CardCount = 437,
+        CardCount = 1067,
         Digital = false,
         NonFoilOnly = false,
         FoilOnly = false,
-        IconSvgUri = new Uri("https://svgs.scryfall.io/sets/cmm.svg?1688961600")
+        BlockCode = "cmd",
+        Block = "Commander",
+        IconSvgUri = new Uri("https://svgs.scryfall.io/sets/cmm.svg?1721016000")
     };
 
     public static Set CommanderAnthology = new Set()
@@ -44,6 +46,6 @@ public static class TestSets
         FoilOnly = false,
         BlockCode = "cmd",
         Block = "Commander",
-        IconSvgUri = new Uri("https://svgs.scryfall.io/sets/cma.svg?1688961600")
+        IconSvgUri = new Uri("https://svgs.scryfall.io/sets/cma.svg?1721016000")
     };
 }

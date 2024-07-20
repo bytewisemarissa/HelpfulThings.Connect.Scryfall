@@ -19,7 +19,7 @@ public class FormatLegalities
     [JsonProperty("commander")] public Legalities Commander { get; set; }
     [JsonProperty("oathbreaker")] public Legalities Oathbreaker { get; set; }
     [JsonProperty("brawl")] public Legalities Brawl { get; set; }
-    [JsonProperty("historicbrawl")] public Legalities HistoricBrawl { get; set; }
+    [JsonProperty("standardbrawl")] public Legalities StandardBrawl { get; set; }
     [JsonProperty("alchemy")] public Legalities Alchemy { get; set; }
     [JsonProperty("paupercommander")] public Legalities PauperCommander { get; set; }
     [JsonProperty("duel")] public Legalities Duel { get; set; }

@@ -64,6 +64,47 @@ public class CardsClientTests
     }
 
     [Test]
+    public async Task Collection_NotFound()
+    {
+        var request = new CollectionRequest()
+        {
+            Identifiers = new List<Identifier>()
+            {
+                new CollectorNumberSetIdentifier("not-found", "unt"),
+                new IllustrationIdentifier()
+                {
+                    IllustrationId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
+                },
+                new MtgoIdentifier()
+                {
+                    MtgoId = 999
+                },
+                new MultiverseIdentifier()
+                {
+                    MultiverseId = 999999
+                },
+                new NameIdentifier()
+                {
+                    Name = "not-found"
+                },
+                new OracleIdentifier()
+                {
+                    OracleId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
+                },
+                new ScryfallIdentifier()
+                {
+                    ScryfallId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
+                }
+            }
+        }; 
+        
+        var result = await _clientUnderTest.CollectionAsync(request);
+
+        result.NotFound.Count.Should().Be(request.Identifiers.Count);
+        result.Data.Count.Should().Be(0);
+    }
+
+    [Test]
     public async Task Collection()
     {
         var request = new CollectionRequest()
@@ -100,6 +141,7 @@ public class CardsClientTests
 
         var result = await _clientUnderTest.CollectionAsync(request);
 
+        result.NotFound.Count.Should().Be(0);
         result.Data.Count.Should().Be(request.Identifiers.Count);
         foreach (var card in result.Data)
         {

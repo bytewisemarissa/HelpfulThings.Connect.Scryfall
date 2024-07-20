@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Identifiers;
 
-public class MultiverseIdentifier : Identifier
+public class MultiverseIdentifier(long id = default) : Identifier
 {
-    [JsonProperty("multiverse_id")] public int MultiverseId { get; set; }
+    [JsonProperty("multiverse_id")] public long MultiverseId { get; set; } = id;
 }

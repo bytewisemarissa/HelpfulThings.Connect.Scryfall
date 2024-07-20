@@ -3,14 +3,8 @@ using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Identifiers;
 
-public class NameSetIdentifier : Identifier
+public class NameSetIdentifier(string name = "", string set = "") : Identifier
 {
-    [JsonProperty("name")] public readonly string Name;
-    [JsonProperty("set")] public readonly string Set;
-
-    public NameSetIdentifier(string name, string set)
-    {
-        Name = name;
-        Set = set;
-    }
+    [JsonProperty("name")] public string Name { get; set; } = name;
+    [JsonProperty("set")] public string Set { get; set; } = set;
 }

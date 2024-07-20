@@ -3,12 +3,7 @@ using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Identifiers;
 
-public class NameIdentifier : Identifier
+public class NameIdentifier(string name  = "") : Identifier
 {
-    [JsonProperty("name")] public string Name { get; set; }
-
-    public NameIdentifier()
-    {
-        Name = string.Empty;
-    }
+    [JsonProperty("name")] public string Name { get; set; } = name;
 }
