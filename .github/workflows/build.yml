@@ -1,22 +1,16 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
-
+name: Test Build
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches-ignore: [ "main" ]
 jobs:
   build:
     defaults:
       run:
         working-directory: ./src
-        
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
@@ -27,6 +21,3 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore -c Release
-    - name: Publish NuGet
-      run: dotnet nuget push HelpfulThings.Connect.Scryfall/bin/Release/*.nupkg -k ${{ secrets.NUGETKEY }} -s https://api.nuget.org/v3/index.json
-                
