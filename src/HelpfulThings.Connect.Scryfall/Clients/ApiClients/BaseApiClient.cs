@@ -1,4 +1,3 @@
-using System.Net.Http.Json;
 using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;
@@ -21,7 +20,7 @@ public class BaseApiClient
         try
         {
             Semaphore.WaitOne();
-            HttpResponseMessage response = await requestAction.Invoke();
+            var response = await requestAction.Invoke();
 
             response.EnsureSuccessStatusCode();
 
@@ -56,7 +55,7 @@ public class BaseApiClient
         {
             Semaphore.WaitOne();
             
-            HttpResponseMessage response = await requestAction.Invoke();
+            var response = await requestAction.Invoke();
 
             response.EnsureSuccessStatusCode();
 
@@ -74,8 +73,8 @@ public class BaseApiClient
             FireRelease();
         }
     }
-    
-    protected void FireRelease()
+
+    private void FireRelease()
     {
 #pragma warning disable CS4014
         Task.Run(async () =>

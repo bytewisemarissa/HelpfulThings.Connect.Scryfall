@@ -1,11 +1,10 @@
-using System.Text.Json.Serialization;
 using HelpfulThings.Connect.Scryfall.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace HelpfulThings.Connect.Scryfall.Converters;
 
-public class CardFaceConverter : Newtonsoft.Json.JsonConverter<CardFace>
+public class CardFaceConverter : JsonConverter<CardFace>
 {
     public override void WriteJson(JsonWriter writer, CardFace? value, JsonSerializer serializer)
     {

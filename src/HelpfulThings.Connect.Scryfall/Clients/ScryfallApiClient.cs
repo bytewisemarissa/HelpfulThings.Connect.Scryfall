@@ -1,28 +1,16 @@
-using System.Net.Http.Json;
 using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
-using HelpfulThings.Connect.Scryfall.Models;
 using HelpfulThings.Connect.Scryfall.RequestResponse.Response;
 
 namespace HelpfulThings.Connect.Scryfall.Clients;
 
 public class ScryfallApiClient : BaseApiClient, IScryfallApiClient
 {
-    public BulkDataClient BulkData { get; }
-    public CardsClient Cards { get; }
-    public CatalogClient Catalog { get; }
-    public RulingsClient Rulings { get; }
-    public SetsClient Sets { get; }
-    public SymbologyClient Symbology { get; }
-
-    public ScryfallApiClient()
-    {
-        BulkData = new BulkDataClient();
-        Cards = new CardsClient();
-        Catalog = new CatalogClient();
-        Rulings = new RulingsClient();
-        Sets = new SetsClient();
-        Symbology = new SymbologyClient();
-    }
+    public BulkDataClient BulkData { get; } = new();
+    public CardsClient Cards { get; } = new();
+    public CatalogClient Catalog { get; } = new();
+    public RulingsClient Rulings { get; } = new();
+    public SetsClient Sets { get; } = new();
+    public SymbologyClient Symbology { get; } = new();
 
     public Task<ScryfallList<T>> GetNextPageOfListResponseAsync<T>(ScryfallList<T> scryfallList) =>
         MakeDelayedRequestAsync<ScryfallList<T>>(() =>

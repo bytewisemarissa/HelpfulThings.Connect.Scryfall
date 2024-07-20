@@ -2,8 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Splat;
 
-// ReSharper disable once CheckNamespace
-namespace Microsoft.Extensions.DependencyInjection;
+namespace HelpfulThings.Connect.Scryfall;
 
 public static class ServiceCollectionExtensions
 {

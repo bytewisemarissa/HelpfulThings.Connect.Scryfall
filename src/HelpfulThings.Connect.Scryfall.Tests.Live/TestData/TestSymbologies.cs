@@ -1,4 +1,3 @@
-using HelpfulThings.Connect.Scryfall.Enums;
 using HelpfulThings.Connect.Scryfall.Models;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
@@ -16,7 +15,7 @@ public static class TestSymbologies
         ManaValue = 0f,
         ConvertedManaCost = 0f,
         Funny = false,
-        Colors = Array.Empty<Colors>(),
-        GathererAlternates = new[] { "ocT", "oT" }
+        Colors = [],
+        GathererAlternates = ["ocT", "oT"]
     };
 }

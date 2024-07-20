@@ -132,12 +132,12 @@ public class CardsClient : BaseApiClient
 
             if (cardFace != null)
             {
-                queryParams["face"] = cardFace.GetEnumValue()!;
+                queryParams["face"] = cardFace.GetEnumValue();
             }
 
             if (imageVersion != null)
             {
-                queryParams["version"] = imageVersion.GetEnumValue()!;
+                queryParams["version"] = imageVersion.GetEnumValue();
             }
             
             return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/random",
