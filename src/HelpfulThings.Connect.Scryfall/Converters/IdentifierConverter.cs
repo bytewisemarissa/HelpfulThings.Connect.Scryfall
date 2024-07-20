@@ -1,4 +1,3 @@
-using System.Text.Json;
 using HelpfulThings.Connect.Scryfall.Identifiers;
 using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
@@ -12,7 +11,7 @@ public class IdentifierConverter : JsonConverter<List<Identifier>>
         throw new NotImplementedException();
     }
 
-    public override List<Identifier>? ReadJson(JsonReader reader, Type objectType, List<Identifier>? existingValue, bool hasExistingValue,
+    public override List<Identifier> ReadJson(JsonReader reader, Type objectType, List<Identifier>? existingValue, bool hasExistingValue,
         JsonSerializer serializer)
     {
         var returns = new List<Identifier>();
@@ -39,7 +38,7 @@ public class IdentifierConverter : JsonConverter<List<Identifier>>
         return returns;
     }
 
-    private Identifier ReadIdentifier(JsonReader reader)
+    private static Identifier ReadIdentifier(JsonReader reader)
     {
         var propertyName = reader.Value;
         reader.Read();
@@ -54,7 +53,7 @@ public class IdentifierConverter : JsonConverter<List<Identifier>>
         switch (propertyName)
         {
             case "collector_number":
-                var setPropertyName = reader.Value;
+                //var setPropertyName = reader.Value;
                 reader.Read();
                 var setValue = reader.Value;
                 reader.Read();
@@ -90,7 +89,7 @@ public class IdentifierConverter : JsonConverter<List<Identifier>>
                     return new NameIdentifier((propertyValue as string)!);    
                 }
                 
-                var nextPropertyNameSet = reader.Value;
+                //var nextPropertyNameSet = reader.Value;
                 reader.Read();
                 var nextPropertyValueSet = reader.Value;
                 reader.Read();

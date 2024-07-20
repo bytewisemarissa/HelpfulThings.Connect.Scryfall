@@ -1,7 +1,5 @@
 using FluentAssertions;
 using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
-using HelpfulThings.Connect.Scryfall.Enums;
-using HelpfulThings.Connect.Scryfall.Models;
 using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;

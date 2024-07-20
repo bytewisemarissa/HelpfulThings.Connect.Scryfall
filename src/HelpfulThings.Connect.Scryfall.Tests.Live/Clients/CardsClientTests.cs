@@ -68,34 +68,39 @@ public class CardsClientTests
     {
         var request = new CollectionRequest()
         {
-            Identifiers = new List<Identifier>()
-            {
+            Identifiers =
+            [
                 new CollectorNumberSetIdentifier("not-found", "unt"),
                 new IllustrationIdentifier()
                 {
                     IllustrationId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
                 },
+
                 new MtgoIdentifier()
                 {
                     MtgoId = 999
                 },
+
                 new MultiverseIdentifier()
                 {
                     MultiverseId = 999999
                 },
+
                 new NameIdentifier()
                 {
                     Name = "not-found"
                 },
+
                 new OracleIdentifier()
                 {
                     OracleId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
                 },
+
                 new ScryfallIdentifier()
                 {
                     ScryfallId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
                 }
-            }
+            ]
         }; 
         
         var result = await _clientUnderTest.CollectionAsync(request);
@@ -109,34 +114,40 @@ public class CardsClientTests
     {
         var request = new CollectionRequest()
         {
-            Identifiers = new List<Identifier>()
-            {
-                new CollectorNumberSetIdentifier(TestCards.BlackLotus1StEd.CollectorNumber, TestCards.BlackLotus1StEd.SetCode),
+            Identifiers =
+            [
+                new CollectorNumberSetIdentifier(TestCards.BlackLotus1StEd.CollectorNumber,
+                    TestCards.BlackLotus1StEd.SetCode),
                 new IllustrationIdentifier()
                 {
                     IllustrationId = TestCards.BlackLotus1StEd.IllustrationId!.Value
                 },
+
                 new MtgoIdentifier()
                 {
                     MtgoId = TestCards.BlackLotus1StEd.MtgoId!.Value
                 },
+
                 new MultiverseIdentifier()
                 {
                     MultiverseId = TestCards.BlackLotus1StEd.MultiverseIds!.First()
                 },
+
                 new NameIdentifier()
                 {
                     Name = TestCards.BlackLotus1StEd.Name!
                 },
+
                 new OracleIdentifier()
                 {
                     OracleId = TestCards.BlackLotus1StEd.OracleId
                 },
+
                 new ScryfallIdentifier()
                 {
                     ScryfallId = TestCards.BlackLotus1StEd.ScryfallId
                 }
-            }
+            ]
         };
 
         var result = await _clientUnderTest.CollectionAsync(request);

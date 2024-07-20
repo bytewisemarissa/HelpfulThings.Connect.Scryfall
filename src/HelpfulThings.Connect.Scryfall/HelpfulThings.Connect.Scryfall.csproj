@@ -3,13 +3,13 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.3.5</Version>
+        <Version>1.4.0</Version>
         <Title>HelpfulThings.Connect.Scryfall</Title>
         <Authors>Marissa Sherman</Authors>
         <Description>A .NET Client for Scryfall.com</Description>
         <Copyright>2023</Copyright>
         <PackageProjectUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall/blob/master/src/NugetSupport/LICENSE</PackageLicenseUrl>
+        <PackageLicense>MIT</PackageLicense>
         <PackageIcon>icon.png</PackageIcon>
         <RepositoryUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall</RepositoryUrl>
         <RepositoryType>Github</RepositoryType>

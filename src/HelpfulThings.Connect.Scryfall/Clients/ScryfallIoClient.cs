@@ -15,7 +15,9 @@ public class ScryfallIoClient : IScryfallIoClient
     {
         public long DownloadedBytes { get; set; }
         public long TotalBytes { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
+
+        // ReSharper disable once UnusedMember.Local
         private string Percentage
         {
             get
@@ -24,11 +26,6 @@ public class ScryfallIoClient : IScryfallIoClient
                 value = Math.Round(value, 2);
                 return $"{value.ToString(CultureInfo.InvariantCulture)}%";
             }
-        }
-
-        public ScryfallIoProgress()
-        {
-            Message = string.Empty;
         }
     }
 

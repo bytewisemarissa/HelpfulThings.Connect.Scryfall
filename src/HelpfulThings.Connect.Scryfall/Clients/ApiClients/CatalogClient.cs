@@ -1,5 +1,4 @@
 using HelpfulThings.Connect.Scryfall.Enums;
-using HelpfulThings.Connect.Scryfall.Models;
 using HelpfulThings.Connect.Scryfall.RequestResponse.Response;
 
 namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;

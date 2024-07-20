@@ -1,7 +1,5 @@
-using System.Text.Json.Serialization;
 using HelpfulThings.Connect.Scryfall.Enums;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace HelpfulThings.Connect.Scryfall.Models;
 
@@ -10,7 +8,7 @@ public class Card
     [JsonProperty("set_id")] public Guid ScryfallSetId { get; set; }
     [JsonProperty("arena_id")] public int? ArenaId { get; set; }
     [JsonProperty("id")] public Guid ScryfallId { get; set; }
-    [JsonProperty("lang")] public string Language { get; set; }
+    [JsonProperty("lang")] public string Language { get; set; } = string.Empty;
     [JsonProperty("mtgo_id")] public int? MtgoId { get; set; }
     [JsonProperty("mtgo_foil_id")] public int? MtgoFoilId { get; set; }
     [JsonProperty("multiverse_ids")] public int[]? MultiverseIds { get; set; }
@@ -18,21 +16,21 @@ public class Card
     [JsonProperty("tcgplayer_etched_id")] public int? TcgPlayerEtchedId { get; set; }
     [JsonProperty("cardmarket_id")] public int? CardmarketId { get; set; }
     [JsonProperty("oracle_id")] public Guid OracleId { get; set; }
-    [JsonProperty("prints_search_uri")] public Uri PrintsSearchUri { get; set; }
-    [JsonProperty("rulings_uri")] public Uri RulingsUri { get; set; }
-    [JsonProperty("scryfall_uri")] public Uri ScryfallUri { get; set; }
-    [JsonProperty("uri")] public Uri ScryfallApiUri { get; set; }
-    [JsonProperty("all_parts")] public RelatedCard[] RelatedCards { get; set; }
+    [JsonProperty("prints_search_uri")] public Uri PrintsSearchUri { get; set; } = new(Constants.Localhost);
+    [JsonProperty("rulings_uri")] public Uri RulingsUri { get; set; } = new(Constants.Localhost);
+    [JsonProperty("scryfall_uri")] public Uri ScryfallUri { get; set; } = new(Constants.Localhost);
+    [JsonProperty("uri")] public Uri ScryfallApiUri { get; set; } = new(Constants.Localhost);
+    [JsonProperty("all_parts")] public RelatedCard[] RelatedCards { get; set; } = [];
     [JsonProperty("card_faces")] public CardFace[]? CardFaces { get; set; }
     [JsonProperty("cmc")] public float? ConvertedManaCost { get; set; }
-    [JsonProperty("color_identity")] public Colors[] ColorIdentities { get; set; }
+    [JsonProperty("color_identity")] public Colors[] ColorIdentities { get; set; } = [];
     [JsonProperty("color_indicator")] public Colors[]? ColorIndicators { get; set; }
-    [JsonProperty("colors")] public Colors[] Colors { get; set; }
+    [JsonProperty("colors")] public Colors[] Colors { get; set; } = [];
     [JsonProperty("edhrec_rank")] public int? EdhrecRank { get; set; }
     [JsonProperty("hand_modifier")] public string? HandModifier { get; set; }
-    [JsonProperty("keywords")] public string[] Keywords { get; set; }
+    [JsonProperty("keywords")] public string[] Keywords { get; set; } = [];
     [JsonProperty("layout")] public CardLayouts Layout { get; set; }
-    [JsonProperty("legalities")] public FormatLegalities Legalities { get; set; }
+    [JsonProperty("legalities")] public FormatLegalities Legalities { get; set; } = new();
     [JsonProperty("life_modifier")] public string? LifeModifier { get; set; }
     [JsonProperty("loyalty")] public string? Loyalty { get; set; }
     [JsonProperty("mana_cost")] public string? ManaCost { get; set; }
@@ -46,43 +44,43 @@ public class Card
     [JsonProperty("foil")] public bool Foil { get; set; }
     [JsonProperty("nonfoil")] public bool NonFoil { get; set; }
     [JsonProperty("toughness")] public string? Toughness { get; set; }
-    [JsonProperty("type_line")] public string TypeLine { get; set; }
+    [JsonProperty("type_line")] public string TypeLine { get; set; } = string.Empty;
     [JsonProperty("artist")] public string? ArtistName { get; set; }
-    [JsonProperty("artist_ids")] public Guid[] ArtistIds { get; set; }
-    [JsonProperty("attraction_lights")] public int[] AttractionLights { get; set; }
+    [JsonProperty("artist_ids")] public Guid[] ArtistIds { get; set; } = [];
+    [JsonProperty("attraction_lights")] public int[] AttractionLights { get; set; } = [];
     [JsonProperty("booster")] public bool FoundInBoosters { get; set; }
     [JsonProperty("border_color")] public BorderColors BorderColor { get; set; }
     [JsonProperty("card_back_id")] public Guid BackDesignScryfallId { get; set; }
-    [JsonProperty("collector_number")] public string CollectorNumber { get; set; }
+    [JsonProperty("collector_number")] public string CollectorNumber { get; set; } = string.Empty;
     [JsonProperty("content_warning")] public bool? ContentWarning { get; set; }
     [JsonProperty("digital")] public bool Digital { get; set; }
-    [JsonProperty("finishes")] public Finishes[] Finishes { get; set; }
+    [JsonProperty("finishes")] public Finishes[] Finishes { get; set; } = [];
     [JsonProperty("flavor_name")] public string? FlavorName { get; set; }
     [JsonProperty("flavor_text")] public string? FlavorText { get; set; }
-    [JsonProperty("frame_effects")] public FrameEffects[] FrameEffects { get; set; }
+    [JsonProperty("frame_effects")] public FrameEffects[] FrameEffects { get; set; } = [];
     [JsonProperty("frame")] public Frames Frame { get; set; }
     [JsonProperty("full_art")] public bool FullArt { get; set; }
-    [JsonProperty("games")] public Games[] Games { get; set; }
+    [JsonProperty("games")] public Games[] Games { get; set; } = [];
     [JsonProperty("highres_image")] public bool HighResolutionScan { get; set; }
-    [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; }
+    [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; } = new();
     [JsonProperty("illustration_id")] public Guid? IllustrationId { get; set; }
     [JsonProperty("image_status")] public ImageStatuses ImageStatus { get; set; }
-    [JsonProperty("prices")] public CardPrices Prices { get; set; }
+    [JsonProperty("prices")] public CardPrices Prices { get; set; } = new();
     [JsonProperty("printed_name")] public string? PrintedName { get; set; }
     [JsonProperty("printed_text")] public string? PrintedText { get; set; }
     [JsonProperty("printed_type_line")] public string? PrintedTypeLine { get; set; }
     [JsonProperty("promo")] public bool Promo { get; set; }
     [JsonProperty("promo_types")] public PromoTypes[]? PromoTypes { get; set; }
-    [JsonProperty("purchase_uris")] public PurchaseUris PurchaseUris { get; set; }
+    [JsonProperty("purchase_uris")] public PurchaseUris PurchaseUris { get; set; } = new();
     [JsonProperty("rarity")] public CardRarities Rarity { get; set; }
-    [JsonProperty("related_uris")] public RelatedUris RelatedUris { get; set; }
+    [JsonProperty("related_uris")] public RelatedUris RelatedUris { get; set; } = new();
     [JsonProperty("released_at")] public DateOnly ReleasedAt { get; set; }
     [JsonProperty("reprint")] public bool Reprint { get; set; }
-    [JsonProperty("scryfall_set_uri")] public Uri ScryfallSetUri { get; set; }
-    [JsonProperty("set_name")] public string SetName { get; set; }
-    [JsonProperty("set_search_uri")] public Uri SetSearchUri { get; set; }
+    [JsonProperty("scryfall_set_uri")] public Uri ScryfallSetUri { get; set; } = new(Constants.Localhost);
+    [JsonProperty("set_name")] public string SetName { get; set; } = string.Empty;
+    [JsonProperty("set_search_uri")] public Uri SetSearchUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("set_type")] public SetTypes SetType { get; set; }
-    [JsonProperty("set_uri")] public Uri SetUri { get; set; }
+    [JsonProperty("set_uri")] public Uri SetUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("story_spotlight")] public bool StorySpotlight { get; set; }
     [JsonProperty("textless")] public bool Textless { get; set; }
     [JsonProperty("variation")] public bool Variation { get; set; }
@@ -92,35 +90,5 @@ public class Card
     [JsonProperty("preview.previewed_at")] public DateOnly? PreviewedAt { get; set; }
     [JsonProperty("preview.source_uri")] public Uri? PreviewSourceUri { get; set; }
     [JsonProperty("preview.source")] public string? PreviewSource { get; set; }
-    [JsonProperty("set")] public string SetCode { get; set; }
-
-    public Card()
-    {
-        Language = string.Empty;
-        PrintsSearchUri = new Uri(Constants.Localhost);
-        RulingsUri = new Uri(Constants.Localhost);
-        ScryfallUri = new Uri(Constants.Localhost);
-        ScryfallApiUri = new Uri(Constants.Localhost);
-        RelatedCards = Array.Empty<RelatedCard>();
-        ColorIdentities = Array.Empty<Colors>();
-        Colors = Array.Empty<Colors>();
-        Keywords = Array.Empty<string>();
-        Legalities = new FormatLegalities();
-        TypeLine = string.Empty;
-        ArtistIds = Array.Empty<Guid>();
-        AttractionLights = Array.Empty<int>();
-        CollectorNumber = string.Empty;
-        Finishes = Array.Empty<Finishes>();
-        FrameEffects = Array.Empty<FrameEffects>();
-        Games = Array.Empty<Games>();
-        ImageUris = new ImageUris();
-        Prices = new CardPrices();
-        PurchaseUris = new PurchaseUris();
-        RelatedUris = new RelatedUris();
-        ScryfallSetUri = new Uri(Constants.Localhost);
-        SetName = string.Empty;
-        SetSearchUri = new Uri(Constants.Localhost);
-        SetUri = new Uri(Constants.Localhost);
-        SetCode = string.Empty;
-    }
+    [JsonProperty("set")] public string SetCode { get; set; } = string.Empty;
 }

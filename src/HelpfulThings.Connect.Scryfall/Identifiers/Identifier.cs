@@ -1,3 +1,3 @@
 namespace HelpfulThings.Connect.Scryfall.Identifiers;
 
-public abstract class Identifier { }
+public abstract class Identifier;
