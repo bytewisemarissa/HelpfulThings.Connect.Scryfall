@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;
@@ -13,6 +14,30 @@ public class BaseApiClient
         {
             BaseAddress = new Uri("https://api.scryfall.com")
         };
+        
+        ApiClient
+            .DefaultRequestHeaders
+            .UserAgent
+            .Add(new ProductInfoHeaderValue(
+                "HelpfulThings-Connect-Scryfall", 
+                null
+                )
+            );
+        
+        ApiClient
+            .DefaultRequestHeaders
+            .Accept
+            .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+    }
+
+    public static void UpdateUserAgent(ProductInfoHeaderValue productInfoHeaderValue)
+    {
+        ApiClient.DefaultRequestHeaders.UserAgent.Clear();
+        
+        ApiClient
+            .DefaultRequestHeaders
+            .UserAgent
+            .Add(productInfoHeaderValue);
     }
     
     protected async Task<T> MakeDelayedRequestAsync<T>(Func<Task<HttpResponseMessage>> requestAction)
