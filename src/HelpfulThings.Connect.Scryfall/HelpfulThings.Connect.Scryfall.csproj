@@ -3,7 +3,7 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.4.0</Version>
+        <Version>1.5.0</Version>
         <Title>HelpfulThings.Connect.Scryfall</Title>
         <Authors>Marissa Sherman</Authors>
         <Description>A .NET Client for Scryfall.com</Description>
