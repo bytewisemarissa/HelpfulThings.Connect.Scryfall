@@ -14,7 +14,7 @@
         <RepositoryUrl>https://github.com/bytewisemarissa/HelpfulThings.Connect.Scryfall</RepositoryUrl>
         <RepositoryType>Github</RepositoryType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

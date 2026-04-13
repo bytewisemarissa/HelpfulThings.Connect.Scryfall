@@ -8,9 +8,10 @@ public class FormatLegalities
     [JsonProperty("standard")] public Legalities Standard { get; set; }
     [JsonProperty("future")] public Legalities Future { get; set; }
     [JsonProperty("historic")] public Legalities Historic { get; set; }
+    
+    [JsonProperty("timeless")] public Legalities Timeless { get; set; }
     [JsonProperty("gladiator")] public Legalities Gladiator { get; set; }
     [JsonProperty("pioneer")] public Legalities Pioneer { get; set; }
-    [JsonProperty("explorer")] public Legalities Explorer { get; set; }
     [JsonProperty("modern")] public Legalities Modern { get; set; }
     [JsonProperty("legacy")] public Legalities Legacy { get; set; }
     [JsonProperty("pauper")] public Legalities Pauper { get; set; }
