@@ -11,7 +11,7 @@ public class Set
     [JsonProperty("arena_code")] public string? ArenaCode { get; set; }
     [JsonProperty("tcgplayer_id")] public int? TcgPlayerId { get; set; }
     [JsonProperty("name")] public string Name { get; set; } = string.Empty;
-    [JsonProperty("set_type")] public SetTypes SetType { get; set; }
+    [JsonProperty("set_type")] public string SetType { get; set; }
     [JsonProperty("released_at")] public DateTime? ReleasedAt { get; set; }
     [JsonProperty("block_code")] public string? BlockCode { get; set; }
     [JsonProperty("block")] public string? Block { get; set; }

@@ -18,7 +18,7 @@ public static class TestSets
         SearchUri = new Uri(
             "https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=e%3Acmm&unique=prints"),
         ReleasedAt = Convert.ToDateTime("2023-08-04"),
-        SetType = SetTypes.Masters,
+        SetType = "Masters",
         CardCount = 1067,
         Digital = false,
         NonFoilOnly = false,
@@ -39,7 +39,7 @@ public static class TestSets
         SearchUri = new Uri(
             "https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&order=set&q=e%3Acma&unique=prints"),
         ReleasedAt = Convert.ToDateTime("2017-06-09"),
-        SetType = SetTypes.Commander,
+        SetType = "Commander",
         CardCount = 320,
         Digital = false,
         NonFoilOnly = false,

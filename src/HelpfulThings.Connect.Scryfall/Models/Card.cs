@@ -29,7 +29,7 @@ public class Card
     [JsonProperty("edhrec_rank")] public int? EdhrecRank { get; set; }
     [JsonProperty("hand_modifier")] public string? HandModifier { get; set; }
     [JsonProperty("keywords")] public string[] Keywords { get; set; } = [];
-    [JsonProperty("layout")] public CardLayouts Layout { get; set; }
+    [JsonProperty("layout")] public string Layout { get; set; }
     [JsonProperty("legalities")] public FormatLegalities Legalities { get; set; } = new();
     [JsonProperty("life_modifier")] public string? LifeModifier { get; set; }
     [JsonProperty("loyalty")] public string? Loyalty { get; set; }
@@ -49,18 +49,18 @@ public class Card
     [JsonProperty("artist_ids")] public Guid[] ArtistIds { get; set; } = [];
     [JsonProperty("attraction_lights")] public int[] AttractionLights { get; set; } = [];
     [JsonProperty("booster")] public bool FoundInBoosters { get; set; }
-    [JsonProperty("border_color")] public BorderColors BorderColor { get; set; }
+    [JsonProperty("border_color")] public string BorderColor { get; set; }
     [JsonProperty("card_back_id")] public Guid BackDesignScryfallId { get; set; }
     [JsonProperty("collector_number")] public string CollectorNumber { get; set; } = string.Empty;
     [JsonProperty("content_warning")] public bool? ContentWarning { get; set; }
     [JsonProperty("digital")] public bool Digital { get; set; }
-    [JsonProperty("finishes")] public Finishes[] Finishes { get; set; } = [];
+    [JsonProperty("finishes")] public string[] Finishes { get; set; } = [];
     [JsonProperty("flavor_name")] public string? FlavorName { get; set; }
     [JsonProperty("flavor_text")] public string? FlavorText { get; set; }
-    [JsonProperty("frame_effects")] public FrameEffects[] FrameEffects { get; set; } = [];
-    [JsonProperty("frame")] public Frames Frame { get; set; }
+    [JsonProperty("frame_effects")] public string[] FrameEffects { get; set; } = [];
+    [JsonProperty("frame")] public string Frame { get; set; }
     [JsonProperty("full_art")] public bool FullArt { get; set; }
-    [JsonProperty("games")] public Games[] Games { get; set; } = [];
+    [JsonProperty("games")] public string[] Games { get; set; } = [];
     [JsonProperty("highres_image")] public bool HighResolutionScan { get; set; }
     [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; } = new();
     [JsonProperty("illustration_id")] public Guid? IllustrationId { get; set; }
@@ -70,22 +70,22 @@ public class Card
     [JsonProperty("printed_text")] public string? PrintedText { get; set; }
     [JsonProperty("printed_type_line")] public string? PrintedTypeLine { get; set; }
     [JsonProperty("promo")] public bool Promo { get; set; }
-    [JsonProperty("promo_types")] public PromoTypes[]? PromoTypes { get; set; }
+    [JsonProperty("promo_types")] public string[]? PromoTypes { get; set; }
     [JsonProperty("purchase_uris")] public PurchaseUris PurchaseUris { get; set; } = new();
-    [JsonProperty("rarity")] public CardRarities Rarity { get; set; }
+    [JsonProperty("rarity")] public string Rarity { get; set; }
     [JsonProperty("related_uris")] public RelatedUris RelatedUris { get; set; } = new();
     [JsonProperty("released_at")] public DateOnly ReleasedAt { get; set; }
     [JsonProperty("reprint")] public bool Reprint { get; set; }
     [JsonProperty("scryfall_set_uri")] public Uri ScryfallSetUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("set_name")] public string SetName { get; set; } = string.Empty;
     [JsonProperty("set_search_uri")] public Uri SetSearchUri { get; set; } = new(Constants.Localhost);
-    [JsonProperty("set_type")] public SetTypes SetType { get; set; }
+    [JsonProperty("set_type")] public string SetType { get; set; }
     [JsonProperty("set_uri")] public Uri SetUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("story_spotlight")] public bool StorySpotlight { get; set; }
     [JsonProperty("textless")] public bool Textless { get; set; }
     [JsonProperty("variation")] public bool Variation { get; set; }
     [JsonProperty("variation_of")] public Guid? VariationOf { get; set; }
-    [JsonProperty("security_stamp")] public SecurityStamps SecurityStamp { get; set; }
+    [JsonProperty("security_stamp")] public string SecurityStamp { get; set; }
     [JsonProperty("watermark")] public string? Watermark { get; set; }
     [JsonProperty("preview.previewed_at")] public DateOnly? PreviewedAt { get; set; }
     [JsonProperty("preview.source_uri")] public Uri? PreviewSourceUri { get; set; }

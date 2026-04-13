@@ -18,7 +18,7 @@ public static class TestCards
         ReleasedAt = new(1993,8,5),
         ScryfallApiUri = new("https://api.scryfall.com/cards/b0faa7f2-b547-42c4-a810-839da50dadfe"),
         ScryfallUri = new("https://scryfall.com/card/lea/232/black-lotus?utm_source=api"),
-        Layout = CardLayouts.Normal,
+        Layout = "normal",
         HighResolutionScan = true,
         ImageStatus = ImageStatuses.HighResolution,
         ImageUris = new()
@@ -52,7 +52,7 @@ public static class TestCards
             Historic = Legalities.NotLegal,
             Gladiator = Legalities.NotLegal,
             Pioneer = Legalities.NotLegal,
-            Explorer = Legalities.NotLegal,
+            Timeless = Legalities.NotLegal,
             Modern = Legalities.NotLegal,
             Legacy = Legalities.Banned,
             Pauper = Legalities.NotLegal,
@@ -71,15 +71,15 @@ public static class TestCards
         },
         Games =
         [
-            Games.Paper,
-            Games.Mtgo
+            "paper",
+            "mtgo"
         ],
         ReserveList = true,
         Foil = false,
         NonFoil = true,
         Finishes =
         [
-            Finishes.NonFoil
+            "NonFoil"
         ],
         Oversized = false,
         Promo = false,
@@ -88,7 +88,7 @@ public static class TestCards
         ScryfallSetId = new("288bd996-960e-448b-a187-9504c1930c2c"),
         SetCode = "lea",
         SetName = "Limited Edition Alpha",
-        SetType = SetTypes.Core,
+        SetType = "Core",
         SetUri = new("https://api.scryfall.com/sets/288bd996-960e-448b-a187-9504c1930c2c"),
         SetSearchUri = new("https://api.scryfall.com/cards/search?order=set&q=e%3Alea&unique=prints"),
         ScryfallSetUri = new("https://scryfall.com/sets/lea?utm_source=api"),
@@ -96,7 +96,7 @@ public static class TestCards
         PrintsSearchUri = new("https://api.scryfall.com/cards/search?order=released&q=oracleid%3A5089ec1a-f881-4d55-af14-5d996171203b&unique=prints"),
         CollectorNumber = "232",
         Digital = false,
-        Rarity = CardRarities.Rare,
+        Rarity = "Rare",
         BackDesignScryfallId = new("0aeebaf5-8c7d-4636-9e82-8c27447861f7"),
         ArtistName = "Christopher Rush",
         ArtistIds =
@@ -104,8 +104,8 @@ public static class TestCards
             new("c96773f0-346c-4f7d-9271-2d98cc5d86e1")
         ],
         IllustrationId = new Guid("54436824-977b-4dc7-8de1-8498e73e5ef2"),
-        BorderColor = BorderColors.Black,
-        Frame = Frames.NineteenNinetyThree,
+        BorderColor = "black",
+        Frame = "1993",
         FullArt = false,
         Textless = false,
         FoundInBoosters = true,
@@ -146,7 +146,7 @@ public static class TestCards
         ReleasedAt = new(2017,6,9),
         ScryfallApiUri = new("https://api.scryfall.com/cards/3a1d0dad-18a8-489e-ac11-08f64b72fda4"),
         ScryfallUri = new("https://scryfall.com/card/cma/176/derevi-empyrial-tactician?utm_source=api"),
-        Layout = CardLayouts.Normal,
+        Layout = "Normal",
         HighResolutionScan = true,
         ImageStatus = ImageStatuses.HighResolution,
         ImageUris = new()
@@ -195,7 +195,7 @@ public static class TestCards
             Historic = Legalities.NotLegal,
             Gladiator = Legalities.NotLegal,
             Pioneer = Legalities.NotLegal,
-            Explorer = Legalities.NotLegal,
+            Timeless = Legalities.NotLegal,
             Modern = Legalities.NotLegal,
             Legacy = Legalities.Legal,
             Pauper = Legalities.NotLegal,
@@ -214,14 +214,14 @@ public static class TestCards
         },
         Games =
         [
-            Games.Paper
+            "Paper"
         ],
         ReserveList = false,
         Foil = true,
         NonFoil = false,
         Finishes =
         [
-            Finishes.Foil
+            "Foil"
         ],
         Oversized = false,
         Promo = false,
@@ -230,7 +230,7 @@ public static class TestCards
         ScryfallSetId = new("fd4d8463-0156-4c60-a40e-778762bb90e4"),
         SetCode = "cma",
         SetName = "Commander Anthology",
-        SetType = SetTypes.Commander,
+        SetType = "Commander",
         SetUri = new("https://api.scryfall.com/sets/fd4d8463-0156-4c60-a40e-778762bb90e4"),
         SetSearchUri = new("https://api.scryfall.com/cards/search?order=set&q=e%3Acma&unique=prints"),
         ScryfallSetUri = new("https://scryfall.com/sets/cma?utm_source=api"),
@@ -240,7 +240,7 @@ public static class TestCards
                 "https://api.scryfall.com/cards/search?order=released&q=oracleid%3Aafa49a09-146f-4439-850e-dd1938c93cef&unique=prints"),
         CollectorNumber = "176",
         Digital = false,
-        Rarity = CardRarities.Mythic,
+        Rarity = "Mythic",
         BackDesignScryfallId = new("0aeebaf5-8c7d-4636-9e82-8c27447861f7"),
         ArtistName = "Michael Komarck",
         ArtistIds =
@@ -248,9 +248,9 @@ public static class TestCards
             new("96a53b95-fe5f-4fbb-9411-ccf4ee150aca")
         ],
         IllustrationId = new Guid("f3e4c9f8-681b-4afa-8603-4cdccb047c55"),
-        BorderColor = BorderColors.Black,
-        Frame = Frames.TwoThousandFifteen,
-        SecurityStamp = SecurityStamps.Oval,
+        BorderColor = "Black",
+        Frame = "2015",
+        SecurityStamp = "Oval",
         FullArt = false,
         Textless = false,
         FoundInBoosters = false,
