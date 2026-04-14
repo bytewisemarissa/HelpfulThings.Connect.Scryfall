@@ -54,8 +54,6 @@ public class BaseApiClient
 
             var result = JsonConvert.DeserializeObject<T>(resultJson);
             
-            FireRelease();
-
             if (result is null)
             {
                 throw new NullReferenceException("Failed to parse json model.");
