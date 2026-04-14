@@ -24,7 +24,7 @@ public class CardsClient : BaseApiClient
         int page = 1) =>
         MakeDelayedRequestAsync<ScryfallList<Card>>(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
 
                 ["q"] = HttpUtility.HtmlEncode(searchQuery),
@@ -64,13 +64,13 @@ public class CardsClient : BaseApiClient
             return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/named", queryParams));
         });
 
-    private Dictionary<string, string> BuildNamedQueryParamsBase(
+    private Dictionary<string, string?> BuildNamedQueryParamsBase(
         string? exact,
         string? fuzzy,
         string? set
         )
     {
-        var queryParams = new Dictionary<string, string>();
+        var queryParams = new Dictionary<string, string?>();
 
         if (exact != null)
         {
@@ -96,7 +96,7 @@ public class CardsClient : BaseApiClient
     public Task<ScryfallCatalog> AutoCompleteAsync(string searchQuery, bool includeExtras = false) =>
         MakeDelayedRequestAsync<ScryfallCatalog>(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["q"] = HttpUtility.HtmlEncode(searchQuery),
                 ["include_extras"] = includeExtras.ToString()
@@ -109,7 +109,7 @@ public class CardsClient : BaseApiClient
     public Task<Card> RandomAsync(string? searchQuery) =>
         MakeDelayedRequestAsync<Card>(async () =>
         {
-            var queryParams = new Dictionary<string, string>();
+            var queryParams = new Dictionary<string, string?>();
 
             if (searchQuery != null)
             {
@@ -123,7 +123,7 @@ public class CardsClient : BaseApiClient
     public Task<Stream> RandomImageAsync(string? searchQuery, CardFaces? cardFace, ImageVersions? imageVersion) => 
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>();
+            var queryParams = new Dictionary<string, string?>();
 
             if (searchQuery != null)
             {
@@ -160,7 +160,7 @@ public class CardsClient : BaseApiClient
         CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -180,7 +180,7 @@ public class CardsClient : BaseApiClient
         int multiverseId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -199,7 +199,7 @@ public class CardsClient : BaseApiClient
         int mtgo, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -218,7 +218,7 @@ public class CardsClient : BaseApiClient
         int arenaId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -237,7 +237,7 @@ public class CardsClient : BaseApiClient
         int tcgPlayerId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -256,7 +256,7 @@ public class CardsClient : BaseApiClient
         int cardMarketId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),
@@ -275,7 +275,7 @@ public class CardsClient : BaseApiClient
         Guid scryfallId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
         MakeDelayedRequestImageAsync(async () =>
         {
-            var queryParams = new Dictionary<string, string>()
+            var queryParams = new Dictionary<string, string?>()
             {
                 ["format"] = "image",
                 ["face"] = cardFace.GetEnumValue(),

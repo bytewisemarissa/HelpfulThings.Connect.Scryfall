@@ -110,6 +110,7 @@ public static class TestCards
         Textless = false,
         FoundInBoosters = true,
         StorySpotlight = false,
+        SecurityStamp = "oval",
         Prices = new()
         {
             Usd = null,

@@ -14,7 +14,7 @@ public class SymbologyClient : BaseApiClient
     public Task<ManaCost> ParseManaCostAsync(string manaCost) =>
         MakeDelayedRequestAsync<ManaCost>(async () =>
         {
-            var queryParams = new Dictionary<string, string>
+            var queryParams = new Dictionary<string, string?>
             {
                 ["cost"] = manaCost
             };

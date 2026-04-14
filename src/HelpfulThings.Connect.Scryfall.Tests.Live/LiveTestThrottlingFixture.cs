@@ -1,6 +1,6 @@
 namespace HelpfulThings.Connect.Scryfall.Tests.Live;
 
-public class LiveTestThrotlingFixture
+public abstract class LiveTestThrottlingFixture
 {
     [TearDown]
     public void CleanUp()

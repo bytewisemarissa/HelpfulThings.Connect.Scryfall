@@ -6,12 +6,12 @@ namespace HelpfulThings.Connect.Scryfall.Models;
 public class Set
 {
     [JsonProperty("id")] public Guid ScryfallId { get; set; }
-    [JsonProperty("code")] public string Code { get; set; } = string.Empty;
+    [JsonProperty("code")] public required string Code { get; set; }
     [JsonProperty("mtgo_code")] public string? MtgoCode { get; set; }
     [JsonProperty("arena_code")] public string? ArenaCode { get; set; }
     [JsonProperty("tcgplayer_id")] public int? TcgPlayerId { get; set; }
-    [JsonProperty("name")] public string Name { get; set; } = string.Empty;
-    [JsonProperty("set_type")] public string SetType { get; set; }
+    [JsonProperty("name")] public required string Name { get; set; }
+    [JsonProperty("set_type")] public required string SetType { get; set; }
     [JsonProperty("released_at")] public DateTime? ReleasedAt { get; set; }
     [JsonProperty("block_code")] public string? BlockCode { get; set; }
     [JsonProperty("block")] public string? Block { get; set; }
