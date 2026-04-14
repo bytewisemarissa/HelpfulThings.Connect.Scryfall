@@ -4,7 +4,7 @@ using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
-public class SetsClientTests : LiveTestThrotlingFixture
+public class SetsClientTests : LiveTestThrottlingFixture
 {
     private SetsClient _clientUnderTest;
 

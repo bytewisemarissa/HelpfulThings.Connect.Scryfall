@@ -6,7 +6,7 @@ namespace HelpfulThings.Connect.Scryfall.Models;
 public class Ruling
 {
     [JsonProperty("oracle_id")] public Guid OracleId { get; set; }
-    [JsonProperty("source")] public string Source { get; set; }
+    [JsonProperty("source")] public required string Source { get; set; }
     [JsonProperty("published_at")] public DateOnly PublishedAt { get; set; }
     [JsonProperty("comment")] public string Comment { get; set; } = string.Empty;
 }
