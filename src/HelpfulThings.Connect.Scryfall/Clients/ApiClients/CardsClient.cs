@@ -302,6 +302,26 @@ public class CardsClient : BaseApiClient
                 cancellationToken);
         }, cancellationToken: cancellationToken);
 
+    public Task<ScryfallList<ManifestEntry>> ManifestAsync(
+        string? lang = null, ManifestOrder order = ManifestOrder.Released, int page = 1,
+        CancellationToken cancellationToken = default) =>
+        MakeDelayedRequestAsync<ScryfallList<ManifestEntry>>(async () =>
+        {
+            var queryParams = new Dictionary<string, string?>()
+            {
+                ["order"] = order.GetEnumValue(),
+                ["page"] = page.ToString()
+            };
+
+            if (lang != null)
+            {
+                queryParams["lang"] = lang;
+            }
+
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/manifest", queryParams), cancellationToken);
+        }, RateLimitCategory.Manifest, cancellationToken);
+
     public Task<Card> CardByScryfallIdAsync(Guid scryfallId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
             await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}", cancellationToken),

@@ -19,5 +19,9 @@ public enum CatalogTypes
     [EnumMember(Value = "watermarks")] Watermarks = 13,
     [EnumMember(Value = "keyword-abilities")] KeywordAbilities = 14,
     [EnumMember(Value = "keyword-actions")] KeywordActions = 15,
-    [EnumMember(Value = "ability-words")] AbilityWords = 16
+    [EnumMember(Value = "ability-words")] AbilityWords = 16,
+    [EnumMember(Value = "supertypes")] Supertypes = 17,
+    [EnumMember(Value = "card-types")] CardTypes = 18,
+    [EnumMember(Value = "battle-types")] BattleTypes = 19,
+    [EnumMember(Value = "flavor-words")] FlavorWords = 20
 }

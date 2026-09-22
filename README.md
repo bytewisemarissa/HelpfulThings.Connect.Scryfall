@@ -52,3 +52,29 @@ BaseApiClient.UpdateUserAgent(new ProductInfoHeaderValue("MyApplication", "1.0.0
 ### Error handling
 
 Requests that fail against the Scryfall API throw `ScryfallApiException`, which carries the HTTP status code and, when Scryfall returns one, the parsed `ScryfallError` object (`Code`, `Details`, `Type`, `Warnings`). A 429 response throws the more specific `ScryfallRateLimitException`, which also exposes `RetryAfter` when Scryfall sends a `Retry-After` header. Genuine transport failures (DNS, timeouts, connection resets) still throw the base `ScryfallException`.
+
+### Downloading bulk data
+
+Scryfall's bulk data files are gzip-compressed JSON Lines (`.jsonl.gz`) — one card object per line, rather than one big JSON array. Use `IScryfallApiClient.BulkData` to look up the download URI, and `IScryfallIoClient` to fetch the file itself without going through the API's rate limiter:
+
+```c#
+using System.IO.Compression;
+using HelpfulThings.Connect.Scryfall.Enums;
+using Newtonsoft.Json;
+
+var listing = await scryfallApiClient.BulkData.GetBulkDataListingByTypeAsync(BulkTypes.OracleCards);
+
+await using var destination = File.Create("oracle-cards.jsonl.gz");
+await scryfallIoClient.MakeNonMeteredRequest(listing.JsonlDownloadUri, progress, destination);
+
+await using var compressed = File.OpenRead("oracle-cards.jsonl.gz");
+await using var decompressed = new GZipStream(compressed, CompressionMode.Decompress);
+using var reader = new StreamReader(decompressed);
+
+string? line;
+while ((line = await reader.ReadLineAsync()) != null)
+{
+    var card = JsonConvert.DeserializeObject<Card>(line);
+    // ... do something with card
+}
+```

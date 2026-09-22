@@ -6,14 +6,16 @@ namespace HelpfulThings.Connect.Scryfall.Models;
 public class CardFace
 {
     [JsonProperty("artist")] public string? ArtistName { get; set; }
+    [JsonProperty("artist_id")] public Guid? ArtistId { get; set; }
     [JsonProperty("cmc")] public float? ConvertedManaCost { get; set; }
     [JsonProperty("color_indicator")] public Colors[] ColorIndicator { get; set; } = [];
     [JsonProperty("colors")] public Colors[] Colors { get; set; } = [];
+    [JsonProperty("defense")] public string? Defense { get; set; }
     [JsonProperty("flavor_text")] public string? FlavorText { get; set; }
     [JsonProperty("illustration_id")] public Guid? IllustrationId { get; set; }
-    [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; } = new();
+    [JsonProperty("image_uris")] public ImageUris? ImageUris { get; set; }
     [JsonProperty("layout")] public string? Layout { get; set; }
-    [JsonProperty("loyalty")] public string Loyalty { get; set; } = string.Empty;
+    [JsonProperty("loyalty")] public string? Loyalty { get; set; }
     [JsonProperty("mana_cost")] public string ManaCost { get; set; } = string.Empty;
     [JsonProperty("name")] public string Name { get; set; } = string.Empty;
     [JsonProperty("oracle_id")] public Guid? OracleId { get; set; }

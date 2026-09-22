@@ -9,5 +9,6 @@ public class CardPrices
     [JsonProperty("usd_etched")] public string? UsdEtched { get; set; }
     [JsonProperty("eur")] public string? Eur { get; set; }
     [JsonProperty("eur_foil")] public string? EurFoil { get; set; }
+    [JsonProperty("eur_etched")] public string? EurEtched { get; set; }
     [JsonProperty("tix")] public string? Tix { get; set; }
 }

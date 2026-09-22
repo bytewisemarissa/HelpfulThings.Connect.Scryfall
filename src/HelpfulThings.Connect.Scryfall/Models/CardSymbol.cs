@@ -13,6 +13,8 @@ public class CardSymbol
     [JsonProperty("mana_value")] public float? ManaValue { get; set; }
     [JsonProperty("appears_in_mana_costs")] public bool AppearsInManaCosts { get; set; }
     [JsonProperty("funny")] public bool Funny { get; set; }
+    [JsonProperty("hybrid")] public bool Hybrid { get; set; }
+    [JsonProperty("phyrexian")] public bool Phyrexian { get; set; }
     [JsonProperty("colors")] public Colors[] Colors { get; set; } = [];
     [JsonProperty("gatherer_alternates")] public string[]? GathererAlternates { get; set; }
     [JsonProperty("svg_uri")] public Uri? SvgUri { get; set; }

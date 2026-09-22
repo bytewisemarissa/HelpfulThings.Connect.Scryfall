@@ -15,7 +15,7 @@ public class Card
     [JsonProperty("tcgplayer_id")] public int? TcgPlayerId { get; set; }
     [JsonProperty("tcgplayer_etched_id")] public int? TcgPlayerEtchedId { get; set; }
     [JsonProperty("cardmarket_id")] public int? CardmarketId { get; set; }
-    [JsonProperty("oracle_id")] public Guid OracleId { get; set; }
+    [JsonProperty("oracle_id")] public Guid? OracleId { get; set; }
     [JsonProperty("prints_search_uri")] public Uri PrintsSearchUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("rulings_uri")] public Uri RulingsUri { get; set; } = new(Constants.Localhost);
     [JsonProperty("scryfall_uri")] public Uri ScryfallUri { get; set; } = new(Constants.Localhost);
@@ -62,7 +62,7 @@ public class Card
     [JsonProperty("full_art")] public bool FullArt { get; set; }
     [JsonProperty("games")] public string[] Games { get; set; } = [];
     [JsonProperty("highres_image")] public bool HighResolutionScan { get; set; }
-    [JsonProperty("image_uris")] public ImageUris ImageUris { get; set; } = new();
+    [JsonProperty("image_uris")] public ImageUris? ImageUris { get; set; }
     [JsonProperty("illustration_id")] public Guid? IllustrationId { get; set; }
     [JsonProperty("image_status")] public ImageStatuses ImageStatus { get; set; }
     [JsonProperty("prices")] public CardPrices Prices { get; set; } = new();
@@ -71,7 +71,7 @@ public class Card
     [JsonProperty("printed_type_line")] public string? PrintedTypeLine { get; set; }
     [JsonProperty("promo")] public bool Promo { get; set; }
     [JsonProperty("promo_types")] public string[]? PromoTypes { get; set; }
-    [JsonProperty("purchase_uris")] public PurchaseUris PurchaseUris { get; set; } = new();
+    [JsonProperty("purchase_uris")] public PurchaseUris? PurchaseUris { get; set; }
     [JsonProperty("rarity")] public required string Rarity { get; set; }
     [JsonProperty("related_uris")] public RelatedUris RelatedUris { get; set; } = new();
     [JsonProperty("released_at")] public DateOnly ReleasedAt { get; set; }
@@ -85,10 +85,13 @@ public class Card
     [JsonProperty("textless")] public bool Textless { get; set; }
     [JsonProperty("variation")] public bool Variation { get; set; }
     [JsonProperty("variation_of")] public Guid? VariationOf { get; set; }
-    [JsonProperty("security_stamp")] public required string SecurityStamp { get; set; }
+    [JsonProperty("security_stamp")] public string? SecurityStamp { get; set; }
     [JsonProperty("watermark")] public string? Watermark { get; set; }
-    [JsonProperty("preview.previewed_at")] public DateOnly? PreviewedAt { get; set; }
-    [JsonProperty("preview.source_uri")] public Uri? PreviewSourceUri { get; set; }
-    [JsonProperty("preview.source")] public string? PreviewSource { get; set; }
+    [JsonProperty("preview")] public CardPreview? Preview { get; set; }
     [JsonProperty("set")] public string SetCode { get; set; } = string.Empty;
+    [JsonProperty("resource_id")] public string? ResourceId { get; set; }
+    [JsonProperty("defense")] public string? Defense { get; set; }
+    [JsonProperty("game_changer")] public bool? GameChanger { get; set; }
+    // Present on every live card response but not yet documented in the API reference.
+    [JsonProperty("image_updated_at")] public DateTime? ImageUpdatedAt { get; set; }
 }

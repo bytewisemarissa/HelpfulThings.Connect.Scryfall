@@ -8,5 +8,7 @@ public enum BulkTypes
     [EnumMember(Value = "unique_artwork")] UniqueArtwork = 2,
     [EnumMember(Value = "default_cards")] DefaultCards = 3,
     [EnumMember(Value = "all_cards")] AllCards = 4,
-    [EnumMember(Value = "rulings")] Rulings = 5
+    [EnumMember(Value = "rulings")] Rulings = 5,
+    [EnumMember(Value = "art_tags")] ArtTags = 6,
+    [EnumMember(Value = "oracle_tags")] OracleTags = 7
 }
