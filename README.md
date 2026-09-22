@@ -126,6 +126,6 @@ dotnet test HelpfulThings.Connect.Scryfall.Tests
 
 # Live: exercises the real api.scryfall.com. Respect the rate limits above if you also run
 # ad-hoc requests against the API while these are running. Not run automatically on every push;
-# trigger the "Test Build" workflow manually, or wait for its nightly schedule.
+# trigger the "Test Build" workflow's live-tests job manually via workflow_dispatch.
 dotnet test HelpfulThings.Connect.Scryfall.Tests.Live --filter "Category=Live"
 ```

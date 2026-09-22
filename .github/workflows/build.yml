@@ -6,8 +6,6 @@ on:
   push:
     branches: [ "*", "**/*" ]
   workflow_dispatch: {}
-  schedule:
-    - cron: "0 6 * * *"
 jobs:
   build:
     defaults:
@@ -35,7 +33,7 @@ jobs:
       run: dotnet test HelpfulThings.Connect.Scryfall.Tests --no-build -c Release
 
   live-tests:
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    if: github.event_name == 'workflow_dispatch'
     defaults:
       run:
         working-directory: ./src
