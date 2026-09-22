@@ -323,7 +323,6 @@ public class CardsClientTests
     }
 
     [Test]
-    [Explicit("Manifest is limited to 10 requests/minute and this library does not yet special-case that limit (see plan 1).")]
     public async Task Manifest()
     {
         var result = await _clientUnderTest.ManifestAsync("en");

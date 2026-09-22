@@ -1,4 +1,7 @@
+using System.Net;
 using System.Net.Http.Headers;
+using System.Reflection;
+using HelpfulThings.Connect.Scryfall.Models;
 using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;
@@ -6,24 +9,28 @@ namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;
 public class BaseApiClient
 {
     protected static readonly HttpClient ApiClient;
-    private static readonly Semaphore Semaphore = new(1, 1);
-    
+
     static BaseApiClient()
     {
-        ApiClient = new HttpClient()
+        var handler = new SocketsHttpHandler
+        {
+            PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+        };
+
+        ApiClient = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.scryfall.com")
         };
-        
+
         ApiClient
             .DefaultRequestHeaders
             .UserAgent
             .Add(new ProductInfoHeaderValue(
-                "HelpfulThings-Connect-Scryfall", 
-                null
+                "HelpfulThings-Connect-Scryfall",
+                GetAssemblyVersion()
                 )
             );
-        
+
         ApiClient
             .DefaultRequestHeaders
             .Accept
@@ -33,78 +40,115 @@ public class BaseApiClient
     public static void UpdateUserAgent(ProductInfoHeaderValue productInfoHeaderValue)
     {
         ApiClient.DefaultRequestHeaders.UserAgent.Clear();
-        
+
         ApiClient
             .DefaultRequestHeaders
             .UserAgent
             .Add(productInfoHeaderValue);
     }
-    
-    protected async Task<T> MakeDelayedRequestAsync<T>(Func<Task<HttpResponseMessage>> requestAction)
+
+    private static string GetAssemblyVersion()
     {
-        try
+        var assembly = Assembly.GetExecutingAssembly();
+        return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+               ?? assembly.GetName().Version?.ToString()
+               ?? "0.0.0";
+    }
+
+    protected Task<T> MakeDelayedRequestAsync<T>(
+        Func<Task<HttpResponseMessage>> requestAction,
+        RateLimitCategory category = RateLimitCategory.Default,
+        CancellationToken cancellationToken = default) =>
+        RequestThrottle.ThrottleAsync(category, async () =>
         {
-            Semaphore.WaitOne();
-            var response = await requestAction.Invoke();
+            var response = await InvokeAsync(requestAction);
 
-            response.EnsureSuccessStatusCode();
+            await EnsureSuccessAsync(response, cancellationToken);
 
-            var resultJson = await response.Content.ReadAsStringAsync() ??
-                       throw new InvalidOperationException("Api result could not be parsed.");
-
-            var result = JsonConvert.DeserializeObject<T>(resultJson);
-            
-            if (result is null)
+            string resultJson;
+            try
             {
-                throw new NullReferenceException("Failed to parse json model.");
+                resultJson = await response.Content.ReadAsStringAsync(cancellationToken);
             }
-            
-            return result;
-        }
-        catch (Exception ex)
-        {
-            throw new ScryfallException(
-                "There was a problem connecting to the Scryfall API. See inner exception for details.", ex);
-        }
-        finally
-        {
-            FireRelease();
-        }
-    }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+            {
+                throw new ScryfallException(
+                    "There was a problem connecting to the Scryfall API. See inner exception for details.", ex);
+            }
 
-    protected async Task<Stream> MakeDelayedRequestImageAsync(Func<Task<HttpResponseMessage>> requestAction)
+            T result;
+            try
+            {
+                result = JsonConvert.DeserializeObject<T>(resultJson) ??
+                         throw new NullReferenceException("Failed to parse json model.");
+            }
+            catch (JsonException ex)
+            {
+                throw new ScryfallException(
+                    "There was a problem connecting to the Scryfall API. See inner exception for details.", ex);
+            }
+
+            return result;
+        }, cancellationToken);
+
+    protected Task<Stream> MakeDelayedRequestImageAsync(
+        Func<Task<HttpResponseMessage>> requestAction,
+        RateLimitCategory category = RateLimitCategory.Default,
+        CancellationToken cancellationToken = default) =>
+        RequestThrottle.ThrottleAsync(category, async () =>
+        {
+            var response = await InvokeAsync(requestAction);
+
+            await EnsureSuccessAsync(response, cancellationToken);
+
+            try
+            {
+                return await response.Content.ReadAsStreamAsync(cancellationToken);
+            }
+            catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+            {
+                throw new ScryfallException(
+                    "There was a problem connecting to the Scryfall API. See inner exception for details.", ex);
+            }
+        }, cancellationToken);
+
+    private static async Task<HttpResponseMessage> InvokeAsync(Func<Task<HttpResponseMessage>> requestAction)
     {
         try
         {
-            Semaphore.WaitOne();
-            
-            var response = await requestAction.Invoke();
-
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadAsStreamAsync();
-
-            return result;
+            return await requestAction.Invoke();
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
         {
             throw new ScryfallException(
                 "There was a problem connecting to the Scryfall API. See inner exception for details.", ex);
         }
-        finally
-        {
-            FireRelease();
-        }
     }
 
-    private void FireRelease()
+    private static async Task EnsureSuccessAsync(HttpResponseMessage response, CancellationToken cancellationToken)
     {
-#pragma warning disable CS4014
-        Task.Run(async () =>
+        if (response.IsSuccessStatusCode)
         {
-            await Task.Delay(100);
-            Semaphore.Release(1);
-        });
-#pragma warning restore CS4014
+            return;
+        }
+
+        var body = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        ScryfallError? error;
+        try
+        {
+            error = JsonConvert.DeserializeObject<ScryfallError>(body);
+        }
+        catch (JsonException)
+        {
+            error = null;
+        }
+
+        if (response.StatusCode == HttpStatusCode.TooManyRequests)
+        {
+            throw new ScryfallRateLimitException(error, body, response.Headers.RetryAfter?.Delta);
+        }
+
+        throw new ScryfallApiException(response.StatusCode, error, body);
     }
 }

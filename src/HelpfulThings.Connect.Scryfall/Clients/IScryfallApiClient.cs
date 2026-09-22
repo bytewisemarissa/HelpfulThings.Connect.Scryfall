@@ -12,5 +12,6 @@ public interface IScryfallApiClient
     RulingsClient Rulings { get; }
     SetsClient Sets { get; }
     SymbologyClient Symbology { get; }
-    Task<ScryfallList<T>> GetNextPageOfListResponseAsync<T>(ScryfallList<T> scryfallList);
+    Task<ScryfallList<T>> GetNextPageOfListResponseAsync<T>(
+        ScryfallList<T> scryfallList, CancellationToken cancellationToken = default);
 }
