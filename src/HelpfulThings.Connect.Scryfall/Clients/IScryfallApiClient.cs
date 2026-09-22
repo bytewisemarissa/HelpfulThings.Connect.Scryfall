@@ -8,6 +8,7 @@ public interface IScryfallApiClient
     BulkDataClient BulkData { get; }
     CardsClient Cards { get; }
     CatalogClient Catalog { get; }
+    MigrationsClient Migrations { get; }
     RulingsClient Rulings { get; }
     SetsClient Sets { get; }
     SymbologyClient Symbology { get; }

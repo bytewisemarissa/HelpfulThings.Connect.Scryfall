@@ -267,6 +267,27 @@ public class CardsClient : BaseApiClient
                 QueryHelpers.AddQueryString($"{CardsEndpoint}/cardmarket/{cardMarketId}", queryParams));
         });
     
+    // TODO(plan1): manifest is limited to 10/minute, distinct from every other endpoint's 10/second.
+    // Once Plan 1's rate limiter lands, route this call through RateLimitCategory.Manifest.
+    public Task<ScryfallList<ManifestEntry>> ManifestAsync(
+        string? lang = null, ManifestOrder order = ManifestOrder.Released, int page = 1) =>
+        MakeDelayedRequestAsync<ScryfallList<ManifestEntry>>(async () =>
+        {
+            var queryParams = new Dictionary<string, string?>()
+            {
+                ["order"] = order.GetEnumValue(),
+                ["page"] = page.ToString()
+            };
+
+            if (lang != null)
+            {
+                queryParams["lang"] = lang;
+            }
+
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/manifest", queryParams));
+        });
+
     public Task<Card> CardByScryfallIdAsync(Guid scryfallId) =>
         MakeDelayedRequestAsync<Card>(async () =>
             await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}"));

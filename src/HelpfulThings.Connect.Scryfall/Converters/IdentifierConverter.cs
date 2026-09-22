@@ -8,7 +8,17 @@ public class IdentifierConverter : JsonConverter<List<Identifier>>
 {
     public override void WriteJson(JsonWriter writer, List<Identifier>? value, JsonSerializer serializer)
     {
-        throw new NotImplementedException();
+        writer.WriteStartArray();
+
+        if (value is not null)
+        {
+            foreach (var identifier in value)
+            {
+                serializer.Serialize(writer, identifier);
+            }
+        }
+
+        writer.WriteEndArray();
     }
 
     public override List<Identifier> ReadJson(JsonReader reader, Type objectType, List<Identifier>? existingValue, bool hasExistingValue,

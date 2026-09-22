@@ -3,7 +3,9 @@ using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
 using HelpfulThings.Connect.Scryfall.Enums;
 using HelpfulThings.Connect.Scryfall.Identifiers;
 using HelpfulThings.Connect.Scryfall.RequestResponse.Request;
+using HelpfulThings.Connect.Scryfall.RequestResponse.Response;
 using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
+using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
@@ -140,7 +142,7 @@ public class CardsClientTests
 
                 new OracleIdentifier()
                 {
-                    OracleId = TestCards.BlackLotus1StEd.OracleId
+                    OracleId = TestCards.BlackLotus1StEd.OracleId!.Value
                 },
 
                 new ScryfallIdentifier()
@@ -313,10 +315,40 @@ public class CardsClientTests
     {
         var result =
             await _clientUnderTest.CardImageByScryfallIdAsync(
-                TestCards.BlackLotus1StEd.ScryfallId, 
-                CardFaces.Front, 
+                TestCards.BlackLotus1StEd.ScryfallId,
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
+    }
+
+    [Test]
+    [Explicit("Manifest is limited to 10 requests/minute and this library does not yet special-case that limit (see plan 1).")]
+    public async Task Manifest()
+    {
+        var result = await _clientUnderTest.ManifestAsync("en");
+
+        result.Data.Length.Should().BeGreaterThan(0);
+        result.Data[0].Id.Should().NotBeEmpty();
+    }
+
+    [Test]
+    public void CollectionResponse_NotFoundIdentifiers_RoundTripThroughIdentifierConverter()
+    {
+        var response = new CollectionResponse()
+        {
+            NotFound =
+            [
+                new NameIdentifier("not-found"),
+                new ScryfallIdentifier(new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1"))
+            ]
+        };
+
+        var json = JsonConvert.SerializeObject(response);
+        var roundTripped = JsonConvert.DeserializeObject<CollectionResponse>(json);
+
+        roundTripped!.NotFound.Should().HaveCount(2);
+        roundTripped.NotFound[0].Should().BeOfType<NameIdentifier>();
+        roundTripped.NotFound[1].Should().BeOfType<ScryfallIdentifier>();
     }
 }

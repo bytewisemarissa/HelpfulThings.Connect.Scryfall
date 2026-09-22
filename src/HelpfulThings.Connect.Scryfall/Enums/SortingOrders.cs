@@ -16,5 +16,7 @@ public enum SortingOrders
     [EnumMember(Value = "edhrec")] EdhrecRanking,
     [EnumMember(Value = "penny")] PennyDreadfulRanking,
     [EnumMember(Value = "artist")] ArtistName,
-    [EnumMember(Value = "review")] ReviewScore
+    [EnumMember(Value = "review")] ReviewScore,
+    [EnumMember(Value = "tix")] TixPrice,
+    [EnumMember(Value = "eur")] EurPrice
 }

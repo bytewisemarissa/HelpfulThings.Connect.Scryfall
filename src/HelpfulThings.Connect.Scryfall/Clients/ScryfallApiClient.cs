@@ -8,6 +8,7 @@ public class ScryfallApiClient : BaseApiClient, IScryfallApiClient
     public BulkDataClient BulkData { get; } = new();
     public CardsClient Cards { get; } = new();
     public CatalogClient Catalog { get; } = new();
+    public MigrationsClient Migrations { get; } = new();
     public RulingsClient Rulings { get; } = new();
     public SetsClient Sets { get; } = new();
     public SymbologyClient Symbology { get; } = new();

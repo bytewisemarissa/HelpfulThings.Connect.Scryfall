@@ -1,5 +1,6 @@
 using HelpfulThings.Connect.Scryfall.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HelpfulThings.Connect.Scryfall.Models;
 
@@ -21,10 +22,14 @@ public class FormatLegalities
     [JsonProperty("oathbreaker")] public Legalities Oathbreaker { get; set; }
     [JsonProperty("brawl")] public Legalities Brawl { get; set; }
     [JsonProperty("standardbrawl")] public Legalities StandardBrawl { get; set; }
+    [JsonProperty("competitivebrawl")] public Legalities CompetitiveBrawl { get; set; }
+    [JsonProperty("tlr")] public Legalities Tlr { get; set; }
     [JsonProperty("alchemy")] public Legalities Alchemy { get; set; }
     [JsonProperty("paupercommander")] public Legalities PauperCommander { get; set; }
     [JsonProperty("duel")] public Legalities Duel { get; set; }
     [JsonProperty("oldschool")] public Legalities OldSchool { get; set; }
     [JsonProperty("premodern")] public Legalities PreModern { get; set; }
     [JsonProperty("predh")] public Legalities Predh { get; set; }
+
+    [JsonExtensionData] public IDictionary<string, JToken>? AdditionalFormats { get; set; }
 }

@@ -1,6 +1,5 @@
 using FluentAssertions;
 using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
-using HelpfulThings.Connect.Scryfall.Models;
 using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
@@ -25,7 +24,6 @@ public class RulingsClientTests
         result.Data.Should().BeEquivalentTo(TestRulings.Rulings[TestCards.DereviEmpyrialTactician.ScryfallId]);
         result.HasMore.Should().BeFalse();
         result.NextPage.Should().BeNull();
-        result.HostedType.Should().Be(typeof(Ruling));
     }
 
     /*
@@ -39,7 +37,6 @@ public class RulingsClientTests
         result.Data.Should().BeEquivalentTo(TestRulings.Rulings[TestCards.DereviEmpyrialTactician.ScryfallId]);
         result.HasMore.Should().BeFalse();
         result.NextPage.Should().BeNull();
-        result.HostedType.Should().Be(typeof(Ruling));
     }
     */
     
@@ -56,7 +53,6 @@ public class RulingsClientTests
         result.Data.Should().BeEquivalentTo(TestRulings.Rulings[TestCards.DereviEmpyrialTactician.ScryfallId]);
         result.HasMore.Should().BeFalse();
         result.NextPage.Should().BeNull();
-        result.HostedType.Should().Be(typeof(Ruling));
     }
     
     [Test]
@@ -69,6 +65,5 @@ public class RulingsClientTests
         result.Data.Should().BeEquivalentTo(TestRulings.Rulings[TestCards.DereviEmpyrialTactician.ScryfallId]);
         result.HasMore.Should().BeFalse();
         result.NextPage.Should().BeNull();
-        result.HostedType.Should().Be(typeof(Ruling));
     }
 }
