@@ -360,5 +360,6 @@ MigrationBackup/
 !Releases
 !Releases/*.nupkg
 
-**/.idea/workspace.xml 
+**/.idea/workspace.xml
 **/.idea/tasks.xml
+.idea/

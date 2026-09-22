@@ -6,6 +6,7 @@ using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
+[Category("Live")]
 public class ErrorHandlingTests
 {
     private CardsClient _clientUnderTest;

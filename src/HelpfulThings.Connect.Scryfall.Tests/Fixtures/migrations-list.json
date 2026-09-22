@@ -1,0 +1,57 @@
+{
+  "object": "list",
+  "has_more": false,
+  "data": [
+    {
+      "object": "migration",
+      "id": "645d119f-58b3-4cdd-8014-7fc34e9a45b8",
+      "uri": "https://api.scryfall.com/migrations/645d119f-58b3-4cdd-8014-7fc34e9a45b8",
+      "performed_at": "2026-09-18",
+      "migration_strategy": "delete",
+      "old_scryfall_id": "7fc47cd0-97df-4363-8269-c3074273e7ec",
+      "note": "Mapped to wrong Beast",
+      "metadata": {
+        "id": "7fc47cd0-97df-4363-8269-c3074273e7ec",
+        "lang": "en",
+        "name": "Beast",
+        "set_code": "tfra",
+        "oracle_id": "695b14a0-920a-47bd-bd4a-7989862cdd0a",
+        "collector_number": "8"
+      }
+    },
+    {
+      "object": "migration",
+      "id": "18045879-f920-4fc9-95e5-58cc58d6c6c1",
+      "uri": "https://api.scryfall.com/migrations/18045879-f920-4fc9-95e5-58cc58d6c6c1",
+      "performed_at": "2026-09-09",
+      "migration_strategy": "delete",
+      "old_scryfall_id": "466a7198-d022-47af-a7c5-351a54eb71de",
+      "note": "Not actually printed",
+      "metadata": {
+        "id": "466a7198-d022-47af-a7c5-351a54eb71de",
+        "lang": "en",
+        "name": "Xyris, the Writhing Storm",
+        "set_code": "plst",
+        "oracle_id": "8687948c-456b-495b-9b31-f818c65624b6",
+        "collector_number": "DMC-175"
+      }
+    },
+    {
+      "object": "migration",
+      "id": "8db4de81-cfc6-471b-86e6-b9317eceef87",
+      "uri": "https://api.scryfall.com/migrations/8db4de81-cfc6-471b-86e6-b9317eceef87",
+      "performed_at": "2026-09-09",
+      "migration_strategy": "delete",
+      "old_scryfall_id": "6de35e89-db1d-4e43-9863-21485fede0be",
+      "note": "Not actually printed",
+      "metadata": {
+        "id": "6de35e89-db1d-4e43-9863-21485fede0be",
+        "lang": "en",
+        "name": "Grazilaxx, Illithid Scholar",
+        "set_code": "plst",
+        "oracle_id": "d22ff377-d282-4a28-9dce-96f25913dc96",
+        "collector_number": "CLB-723"
+      }
+    }
+  ]
+}

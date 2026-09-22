@@ -8,7 +8,8 @@ namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 /// Live checks for the drift documented in plan 02: fields that changed shape,
 /// nullability, or disappeared entirely between the old model and today's API.
 /// </summary>
-public class CardModelDriftTests : LiveTestThrottlingFixture
+[Category("Live")]
+public class CardModelDriftTests
 {
     private CardsClient _clientUnderTest;
 

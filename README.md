@@ -32,11 +32,25 @@ var app = builder.Build();
 app.Run();
 ```
 
-That's it you should be ready to go.
+That's it you should be ready to go. `AddScryfallApi()` registers both clients as singletons, since they are stateless wrappers over one shared, throttled `HttpClient`.
+
+If you use [Splat](https://github.com/reactiveui/splat) instead of `Microsoft.Extensions.DependencyInjection`, register the clients yourself with one line each:
+
+```c#
+using Splat;
+using HelpfulThings.Connect.Scryfall.Clients;
+
+Locator.CurrentMutable.RegisterLazySingleton<IScryfallApiClient>(() => new ScryfallApiClient());
+Locator.CurrentMutable.RegisterLazySingleton<IScryfallIoClient>(() => new ScryfallIoClient());
+```
 
 ### Usage
 
 In general you will inject two interfaces. IScryfallApiClient and IScryfallIoClient. For the majority of uses cases you will leverage IScryfallApiClient. This client has all of the Scryfall functionality built into it. The various routes of the API are available as clients as members of the IScryfallApiClient. The client will manage throttling for you. If you need to follow a Scryfall IO url the IScryfallIoClient will allow you to do that without the rate limiting feature of IScryfallApiClient.
+
+### Rate limiting
+
+`IScryfallApiClient` throttles every request to stay within [Scryfall's documented rate limits](https://scryfall.com/docs/api/rate-limits): `cards/search`, `cards/named`, `cards/random`, and `cards/collection` are limited to 2 requests/second, `cards/manifest` to 10 requests/minute, and everything else to 10 requests/second. If Scryfall still responds with `429 Too Many Requests` — for example when multiple processes share one API key — the client throws `ScryfallRateLimitException`; callers must back off, optionally using its `RetryAfter` value, before retrying.
 
 ### Identifying your application
 
@@ -77,4 +91,41 @@ while ((line = await reader.ReadLineAsync()) != null)
     var card = JsonConvert.DeserializeObject<Card>(line);
     // ... do something with card
 }
+```
+
+### Breaking changes in 2.0
+
+- Errors now throw typed exceptions instead of an unhandled deserialization failure or a generic
+  HTTP exception: `ScryfallApiException` (status code + parsed `ScryfallError`) and, for 429
+  responses, the more specific `ScryfallRateLimitException` (adds `RetryAfter`).
+- `Card.ImageUris`, `Card.PurchaseUris`, `Card.OracleId`, and `Card.SecurityStamp` are now
+  nullable. Double-faced and reversible cards may not carry these at the top level; check
+  `Card.CardFaces` instead.
+- `Card.Preview` is now an object (`CardPreview`: `Source`, `SourceUri`, `PreviewedAt`) rather than
+  the previous flat fields.
+- `BulkData` field names were corrected to match the API (`JsonlDownloadUri`, `CompressedSize`),
+  and bulk files are now JSON Lines (`.jsonl.gz`, one card per line) rather than one large JSON
+  array — see "Downloading bulk data" above.
+- `HostedType` was removed; it did not correspond to anything in the API.
+- The Splat integration (`ServiceCollectionExtensions.RegisterWithSplat`) was removed. See
+  "Setup" above for the one-line replacement.
+- `AddScryfallApi()` now registers `IScryfallApiClient` and `IScryfallIoClient` as singletons
+  instead of scoped services.
+- Requests are now throttled per Scryfall's documented, per-endpoint rate limits instead of a
+  single fixed delay; see "Rate limiting" above.
+- The package's NuGet metadata was corrected: a valid `PackageLicenseExpression` (MIT), a bundled
+  `README.md`, and refreshed copyright and tags. This has no effect on the API surface.
+
+### Running the tests
+
+From `src/`:
+
+```bash
+# Offline: fixture-backed model and behavior tests, no network access. Runs in CI on every push.
+dotnet test HelpfulThings.Connect.Scryfall.Tests
+
+# Live: exercises the real api.scryfall.com. Respect the rate limits above if you also run
+# ad-hoc requests against the API while these are running. Not run automatically on every push;
+# trigger the "Test Build" workflow's live-tests job manually via workflow_dispatch.
+dotnet test HelpfulThings.Connect.Scryfall.Tests.Live --filter "Category=Live"
 ```

@@ -4,7 +4,8 @@ using HelpfulThings.Connect.Scryfall.Enums;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
-public class BulkDataClientTests : LiveTestThrottlingFixture
+[Category("Live")]
+public class BulkDataClientTests
 {
     private BulkDataClient _clientUnderTest;
 

@@ -5,6 +5,7 @@ using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
+[Category("Live")]
 public class SymbologyClientTests
 {
     private SymbologyClient _clientUnderTest;
@@ -37,8 +38,8 @@ public class SymbologyClientTests
         results.Cost.Should().Be("{4}{G}");
         results.Colors.Length.Should().Be(1);
         results.Colors[0].Should().Be(Colors.Green);
-        results.Colorless = false;
-        results.MonoColor = true;
-        results.MultiColored = false;
+        results.Colorless.Should().BeFalse();
+        results.MonoColor.Should().BeTrue();
+        results.MultiColored.Should().BeFalse();
     }
 }

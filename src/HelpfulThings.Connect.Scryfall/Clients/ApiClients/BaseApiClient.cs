@@ -8,21 +8,24 @@ namespace HelpfulThings.Connect.Scryfall.Clients.ApiClients;
 
 public class BaseApiClient
 {
-    protected static readonly HttpClient ApiClient;
+    protected static HttpClient ApiClient;
 
     static BaseApiClient()
     {
-        var handler = new SocketsHttpHandler
+        ApiClient = CreateClient(new SocketsHttpHandler
         {
             PooledConnectionLifetime = TimeSpan.FromMinutes(15)
-        };
+        });
+    }
 
-        ApiClient = new HttpClient(handler)
+    private static HttpClient CreateClient(HttpMessageHandler handler)
+    {
+        var client = new HttpClient(handler)
         {
             BaseAddress = new Uri("https://api.scryfall.com")
         };
 
-        ApiClient
+        client
             .DefaultRequestHeaders
             .UserAgent
             .Add(new ProductInfoHeaderValue(
@@ -31,10 +34,12 @@ public class BaseApiClient
                 )
             );
 
-        ApiClient
+        client
             .DefaultRequestHeaders
             .Accept
             .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        return client;
     }
 
     public static void UpdateUserAgent(ProductInfoHeaderValue productInfoHeaderValue)
@@ -46,6 +51,12 @@ public class BaseApiClient
             .UserAgent
             .Add(productInfoHeaderValue);
     }
+
+    /// <summary>
+    /// Test seam: swaps the shared client onto a stubbed handler so offline tests can exercise
+    /// error mapping and throttling without hitting the network. Not for production use.
+    /// </summary>
+    internal static void UseHandlerForTests(HttpMessageHandler handler) => ApiClient = CreateClient(handler);
 
     private static string GetAssemblyVersion()
     {
