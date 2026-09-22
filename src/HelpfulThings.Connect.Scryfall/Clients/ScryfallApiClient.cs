@@ -12,20 +12,22 @@ public class ScryfallApiClient : BaseApiClient, IScryfallApiClient
     public SetsClient Sets { get; } = new();
     public SymbologyClient Symbology { get; } = new();
 
-    public Task<ScryfallList<T>> GetNextPageOfListResponseAsync<T>(ScryfallList<T> scryfallList) =>
-        MakeDelayedRequestAsync<ScryfallList<T>>(() =>
+    public Task<ScryfallList<T>> GetNextPageOfListResponseAsync<T>(
+        ScryfallList<T> scryfallList, CancellationToken cancellationToken = default)
+    {
+        if (!scryfallList.HasMore)
         {
-            if (!scryfallList.HasMore)
-            {
-                throw new ArgumentException("The provided ScryfallList response does not have more items.");
-            }
-            
-            if (scryfallList.NextPage == null)
-            {
-                throw new NullReferenceException("The provided ScryfallList did not have a next page URI.");
-            }
-            
-            return ApiClient.GetAsync(scryfallList.NextPage.PathAndQuery);
-        });
+            throw new ArgumentException("The provided ScryfallList response does not have more items.");
+        }
+
+        if (scryfallList.NextPage == null)
+        {
+            throw new ArgumentException("The provided ScryfallList did not have a next page URI.");
+        }
+
+        return MakeDelayedRequestAsync<ScryfallList<T>>(
+            () => ApiClient.GetAsync(scryfallList.NextPage.PathAndQuery, cancellationToken),
+            cancellationToken: cancellationToken);
+    }
 }
 

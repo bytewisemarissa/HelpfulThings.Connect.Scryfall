@@ -4,7 +4,7 @@ public interface IScryfallIoClient
 {
     Task MakeNonMeteredRequest(
         Uri uri,
-        IProgress<ScryfallIoClient.ScryfallIoProgress> progress, 
+        IProgress<ScryfallIoClient.ScryfallIoProgress>? progress,
         Stream destination,
         CancellationToken cancellationToken = default
     );
