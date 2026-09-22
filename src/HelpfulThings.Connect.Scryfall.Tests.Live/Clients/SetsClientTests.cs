@@ -4,7 +4,8 @@ using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
-public class SetsClientTests : LiveTestThrottlingFixture
+[Category("Live")]
+public class SetsClientTests
 {
     private SetsClient _clientUnderTest;
 
@@ -18,7 +19,7 @@ public class SetsClientTests : LiveTestThrottlingFixture
     public async Task ListSets()
     {
         var setsResults = await _clientUnderTest.ListSets();
-        
+
         Assert.IsTrue(setsResults.Data.Length > 0);
         Assert.IsTrue(setsResults.Warnings == null);
     }
@@ -28,7 +29,7 @@ public class SetsClientTests : LiveTestThrottlingFixture
     {
         var set = await _clientUnderTest.GetSetByCode(TestSets.CommanderMasters.Code);
 
-        set.Should().BeEquivalentTo(TestSets.CommanderMasters);
+        SetAssertions.AssertIsCommanderMasters(set);
     }
 
     [Test]
@@ -36,23 +37,23 @@ public class SetsClientTests : LiveTestThrottlingFixture
     {
         var set = await _clientUnderTest.GetSetByTcgPlayerId(TestSets.CommanderMasters.TcgPlayerId);
 
-        set.Should().BeEquivalentTo(TestSets.CommanderMasters);
+        SetAssertions.AssertIsCommanderMasters(set);
     }
-    
+
     [Test]
     public async Task GetSetsByScryfallIdCommanderMasters()
     {
         var set = await _clientUnderTest.GetSetByScryfallId(TestSets.CommanderMasters.ScryfallId);
-        
-        set.Should().BeEquivalentTo(TestSets.CommanderMasters);
+
+        SetAssertions.AssertIsCommanderMasters(set);
     }
-    
+
     [Test]
     public async Task GetSetByCodeCommanderAnthology()
     {
         var set = await _clientUnderTest.GetSetByCode(TestSets.CommanderAnthology.Code);
 
-        set.Should().BeEquivalentTo(TestSets.CommanderAnthology);
+        SetAssertions.AssertIsCommanderAnthology(set);
     }
 
     [Test]
@@ -60,14 +61,14 @@ public class SetsClientTests : LiveTestThrottlingFixture
     {
         var set = await _clientUnderTest.GetSetByTcgPlayerId(TestSets.CommanderAnthology.TcgPlayerId);
 
-        set.Should().BeEquivalentTo(TestSets.CommanderAnthology);
+        SetAssertions.AssertIsCommanderAnthology(set);
     }
-    
+
     [Test]
     public async Task GetSetsByScryfallIdCommanderAnthology()
     {
         var set = await _clientUnderTest.GetSetByScryfallId(TestSets.CommanderAnthology.ScryfallId);
-        
-        set.Should().BeEquivalentTo(TestSets.CommanderAnthology);
+
+        SetAssertions.AssertIsCommanderAnthology(set);
     }
 }

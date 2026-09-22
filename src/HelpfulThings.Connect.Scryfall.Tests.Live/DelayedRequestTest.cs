@@ -5,6 +5,7 @@ using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live;
 
+[Category("Live")]
 public class DelayedRequestTest
 {
     private readonly CardsClient _cardsClient = new();

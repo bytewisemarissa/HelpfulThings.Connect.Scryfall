@@ -3,7 +3,8 @@ using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
-public class MigrationsClientTests : LiveTestThrottlingFixture
+[Category("Live")]
+public class MigrationsClientTests
 {
     private MigrationsClient _clientUnderTest;
 

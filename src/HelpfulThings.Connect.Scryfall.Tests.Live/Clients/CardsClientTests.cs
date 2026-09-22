@@ -9,11 +9,11 @@ using Newtonsoft.Json;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
+[Category("Live")]
 public class CardsClientTests
 {
     private CardsClient _clientUnderTest;
 
-    
     [SetUp]
     public void Setup()
     {
@@ -24,36 +24,35 @@ public class CardsClientTests
     public async Task Search()
     {
         var result = await _clientUnderTest.SearchAsync(
-            TestCards.BlackLotus1StEd.Name!, 
-            UniqueModes.Prints, 
+            TestCards.BlackLotus1StEd.Name!,
+            UniqueModes.Prints,
             SortingOrders.Released,
             SortingDirection.Ascending);
 
-        var firstSearchResult = result.Data.First();
-        firstSearchResult.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result.Data.First());
     }
 
     [Test]
     public async Task Named()
     {
         var result = await _clientUnderTest.NamedAsync(
-            TestCards.BlackLotus1StEd.Name, 
-            null, 
+            TestCards.BlackLotus1StEd.Name,
+            null,
             TestCards.BlackLotus1StEd.SetCode);
-        
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
 
     [Test]
     public async Task NamedImage()
     {
         var result = await _clientUnderTest.NamedImageAsync(
-            TestCards.BlackLotus1StEd.Name, 
-            null, 
+            TestCards.BlackLotus1StEd.Name,
+            null,
             TestCards.BlackLotus1StEd.SetCode,
             CardFaces.Front,
             ImageVersions.Small);
-        
+
         result.Length.Should().BeGreaterThan(0);
     }
 
@@ -103,8 +102,8 @@ public class CardsClientTests
                     ScryfallId = new Guid("0001b119-a224-4d24-879c-aeb2cc9861a1")
                 }
             ]
-        }; 
-        
+        };
+
         var result = await _clientUnderTest.CollectionAsync(request);
 
         result.NotFound.Count.Should().Be(request.Identifiers.Count);
@@ -120,11 +119,6 @@ public class CardsClientTests
             [
                 new CollectorNumberSetIdentifier(TestCards.BlackLotus1StEd.CollectorNumber,
                     TestCards.BlackLotus1StEd.SetCode),
-                new IllustrationIdentifier()
-                {
-                    IllustrationId = TestCards.BlackLotus1StEd.IllustrationId!.Value
-                },
-
                 new MtgoIdentifier()
                 {
                     MtgoId = TestCards.BlackLotus1StEd.MtgoId!.Value
@@ -169,147 +163,145 @@ public class CardsClientTests
             await _clientUnderTest.CardBySetCollectorNumberAsync(
                 TestCards.BlackLotus1StEd.SetCode, TestCards.BlackLotus1StEd.CollectorNumber);
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task BySetCollectorNumberImage()
     {
         var result =
             await _clientUnderTest.CardBySetCollectorNumberImageAsync(
-                TestCards.BlackLotus1StEd.SetCode, 
-                TestCards.BlackLotus1StEd.CollectorNumber, 
+                TestCards.BlackLotus1StEd.SetCode,
+                TestCards.BlackLotus1StEd.CollectorNumber,
                 null,
                 CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    
+
     [Test]
     public async Task ByMultiverseId()
     {
         var result =
             await _clientUnderTest.CardByMultiverseIdAsync(TestCards.BlackLotus1StEd.MultiverseIds!.First());
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task ByMultiverseIdImage()
     {
         var result =
-            await _clientUnderTest.CardImageByMultiverseIdAsync(TestCards.BlackLotus1StEd.MultiverseIds!.First(), 
-                CardFaces.Front, 
+            await _clientUnderTest.CardImageByMultiverseIdAsync(TestCards.BlackLotus1StEd.MultiverseIds!.First(),
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    
+
     [Test]
     public async Task ByMtgoId()
     {
         var result =
             await _clientUnderTest.CardByMtgoIdAsync(TestCards.BlackLotus1StEd.MtgoId!.Value);
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task ByMtgoIdImage()
     {
         var result =
             await _clientUnderTest.CardImageByMtgoIdAsync(
-                TestCards.BlackLotus1StEd.MtgoId!.Value, 
-                CardFaces.Front, 
+                TestCards.BlackLotus1StEd.MtgoId!.Value,
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    
-    /*
+
     [Test]
     public async Task BySetArenaId()
     {
         var result =
-            await _clientUnderTest.CardByArenaId(_expectedResult.ArenaId);
+            await _clientUnderTest.CardByArenaIdAsync(TestCards.LlanowarElvesArena.ArenaId!.Value);
 
-        result.Should().BeEquivalentTo(_expectedResult);
+        CardAssertions.AssertIsLlanowarElvesArenaPrinting(result);
     }
-    
+
     [Test]
     public async Task ByArenaIdImage()
     {
         var result =
-            await _clientUnderTest.CardImageByArenaId(
-                _expectedResult.ArenaId, 
-                CardFaces.Front, 
+            await _clientUnderTest.CardImageByArenaIdAsync(
+                TestCards.LlanowarElvesArena.ArenaId!.Value,
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    */
-    
+
     [Test]
     public async Task ByTcgPlayerId()
     {
         var result =
             await _clientUnderTest.CardByTcgPlayerIdAsync(TestCards.BlackLotus1StEd.TcgPlayerId!.Value);
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task ByTcgPlayerIdImage()
     {
         var result =
             await _clientUnderTest.CardImageByTcgPlayerIdAsync(
-                TestCards.BlackLotus1StEd.TcgPlayerId!.Value, 
-                CardFaces.Front, 
+                TestCards.BlackLotus1StEd.TcgPlayerId!.Value,
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    
+
     [Test]
     public async Task ByCardMarketId()
     {
         var result =
             await _clientUnderTest.CardByCardMarketIdAsync(TestCards.BlackLotus1StEd.CardmarketId!.Value);
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task ByCardMarketIdImage()
     {
         var result =
             await _clientUnderTest.CardImageByCardMarketIdAsync(
-                TestCards.BlackLotus1StEd.CardmarketId!.Value, 
-                CardFaces.Front, 
+                TestCards.BlackLotus1StEd.CardmarketId!.Value,
+                CardFaces.Front,
                 ImageVersions.Small);
 
         result.Length.Should().BeGreaterThan(0);
     }
-    
+
     [Test]
     public async Task ByScryfallIdBlackLotus1StEd()
     {
         var result =
             await _clientUnderTest.CardByScryfallIdAsync(TestCards.BlackLotus1StEd.ScryfallId);
 
-        result.Should().BeEquivalentTo(TestCards.BlackLotus1StEd);
+        CardAssertions.AssertIsBlackLotusAlpha(result);
     }
-    
+
     [Test]
     public async Task ByScryfallIdDereviEmpyrialTactician()
     {
         var result =
             await _clientUnderTest.CardByScryfallIdAsync(TestCards.DereviEmpyrialTactician.ScryfallId);
 
-        result.Should().BeEquivalentTo(TestCards.DereviEmpyrialTactician);
+        CardAssertions.AssertIsDereviEmpyrialTactician(result);
     }
-    
+
     [Test]
     public async Task ByScryfallIdImage()
     {

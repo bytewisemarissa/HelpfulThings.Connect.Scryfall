@@ -4,6 +4,7 @@ using HelpfulThings.Connect.Scryfall.Enums;
 
 namespace HelpfulThings.Connect.Scryfall.Tests.Live.Clients;
 
+[Category("Live")]
 public class CatalogClientTests
 {
     private CatalogClient _clientUnderTest;
