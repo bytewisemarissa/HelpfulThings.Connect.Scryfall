@@ -1,5 +1,4 @@
 using System.Text;
-using System.Web;
 using HelpfulThings.Connect.Scryfall.Enums;
 using HelpfulThings.Connect.Scryfall.Models;
 using HelpfulThings.Connect.Scryfall.RequestResponse.Request;
@@ -21,50 +20,57 @@ public class CardsClient : BaseApiClient
         bool includeExtras = false,
         bool includeMultilingual = false,
         bool includeVariations = false,
-        int page = 1) =>
+        int page = 1,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Card>>(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
             {
 
-                ["q"] = HttpUtility.HtmlEncode(searchQuery),
+                ["q"] = searchQuery,
                 ["unique"] = uniqueMode.GetEnumValue(),
                 ["order"] = sortingOrder.GetEnumValue(),
                 ["dir"] = sortingDirection.GetEnumValue(),
-                ["include_extras"] = includeExtras.ToString(),
-                ["include_multilingual"] = includeMultilingual.ToString(),
-                ["include_variations"] = includeVariations.ToString(),
+                ["include_extras"] = ToLowerString(includeExtras),
+                ["include_multilingual"] = ToLowerString(includeMultilingual),
+                ["include_variations"] = ToLowerString(includeVariations),
                 ["page"] = page.ToString()
             };
 
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/search", queryParams));
-        });
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/search", queryParams), cancellationToken);
+        }, RateLimitCategory.CardSearch, cancellationToken);
 
-    public Task<Card> NamedAsync(string? exact, string? fuzzy, string? set) =>
-        MakeDelayedRequestAsync<Card>(async () =>
-        {
-            var queryParams = BuildNamedQueryParamsBase(exact, fuzzy, set);
+    public Task<Card> NamedAsync(string? exact, string? fuzzy, string? set, CancellationToken cancellationToken = default)
+    {
+        var queryParams = BuildNamedQueryParamsBase(exact, fuzzy, set);
 
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/named", queryParams));
-        });
+        return MakeDelayedRequestAsync<Card>(async () =>
+            await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/named", queryParams), cancellationToken),
+            RateLimitCategory.CardSearch, cancellationToken);
+    }
 
     public Task<Stream> NamedImageAsync(
         string? exact,
         string? fuzzy,
         string? set,
         CardFaces cardFace,
-        ImageVersions imageVersion) =>
-        MakeDelayedRequestImageAsync(async () =>
-        {
-            var queryParams = BuildNamedQueryParamsBase(exact, fuzzy, set);
-            queryParams["format"] = "image";
-            queryParams["face"] = cardFace.GetEnumValue();
-            queryParams["version"] = imageVersion.GetEnumValue();
+        ImageVersions imageVersion,
+        CancellationToken cancellationToken = default)
+    {
+        var queryParams = BuildNamedQueryParamsBase(exact, fuzzy, set);
+        queryParams["format"] = "image";
+        queryParams["face"] = cardFace.GetEnumValue();
+        queryParams["version"] = imageVersion.GetEnumValue();
 
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/named", queryParams));
-        });
+        return MakeDelayedRequestImageAsync(async () =>
+            await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/named", queryParams), cancellationToken),
+            RateLimitCategory.CardSearch, cancellationToken);
+    }
 
-    private Dictionary<string, string?> BuildNamedQueryParamsBase(
+    private static Dictionary<string, string?> BuildNamedQueryParamsBase(
         string? exact,
         string? fuzzy,
         string? set
@@ -76,13 +82,13 @@ public class CardsClient : BaseApiClient
         {
             queryParams["exact"] = exact;
         }
+        else if (fuzzy != null)
+        {
+            queryParams["fuzzy"] = fuzzy;
+        }
         else
         {
-            if (fuzzy != null) queryParams["fuzzy"] = fuzzy;
-            else
-            {
-                throw new NullReferenceException("Fuzzy should not be null here.");
-            }
+            throw new ArgumentException("Either exact or fuzzy must be provided.");
         }
 
         if (set != null)
@@ -93,41 +99,44 @@ public class CardsClient : BaseApiClient
         return queryParams;
     }
 
-    public Task<ScryfallCatalog> AutoCompleteAsync(string searchQuery, bool includeExtras = false) =>
+    public Task<ScryfallCatalog> AutoCompleteAsync(
+        string searchQuery, bool includeExtras = false, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallCatalog>(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
             {
-                ["q"] = HttpUtility.HtmlEncode(searchQuery),
-                ["include_extras"] = includeExtras.ToString()
+                ["q"] = searchQuery,
+                ["include_extras"] = ToLowerString(includeExtras)
             };
 
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/autocomplete",
-                queryParams));
-        });
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/autocomplete", queryParams), cancellationToken);
+        }, cancellationToken: cancellationToken);
 
-    public Task<Card> RandomAsync(string? searchQuery) =>
+    public Task<Card> RandomAsync(string? searchQuery, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
         {
             var queryParams = new Dictionary<string, string?>();
 
             if (searchQuery != null)
             {
-                queryParams["q"] = HttpUtility.HtmlEncode(searchQuery);
+                queryParams["q"] = searchQuery;
             }
 
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/random",
-                queryParams));
-        });
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/random", queryParams), cancellationToken);
+        }, RateLimitCategory.CardSearch, cancellationToken);
 
-    public Task<Stream> RandomImageAsync(string? searchQuery, CardFaces? cardFace, ImageVersions? imageVersion) => 
+    public Task<Stream> RandomImageAsync(
+        string? searchQuery, CardFaces? cardFace, ImageVersions? imageVersion,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>();
 
             if (searchQuery != null)
             {
-                queryParams["q"] = HttpUtility.HtmlEncode(searchQuery);
+                queryParams["q"] = searchQuery;
             }
 
             if (cardFace != null)
@@ -139,25 +148,32 @@ public class CardsClient : BaseApiClient
             {
                 queryParams["version"] = imageVersion.GetEnumValue();
             }
-            
-            return await ApiClient.GetAsync(QueryHelpers.AddQueryString($"{CardsEndpoint}/random",
-                queryParams));
-        });
 
-    public Task<CollectionResponse> CollectionAsync(CollectionRequest request) =>
+            return await ApiClient.GetAsync(
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/random", queryParams), cancellationToken);
+        }, RateLimitCategory.CardSearch, cancellationToken);
+
+    public Task<CollectionResponse> CollectionAsync(
+        CollectionRequest request, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<CollectionResponse>(async () =>
         {
             var requestJson = JsonConvert.SerializeObject(request);
             var requestContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
-            return await ApiClient.PostAsync($"{CardsEndpoint}/collection", requestContent);
-        });
+            return await ApiClient.PostAsync($"{CardsEndpoint}/collection", requestContent, cancellationToken);
+        }, RateLimitCategory.CardSearch, cancellationToken);
 
-    public Task<Card> CardBySetCollectorNumberAsync(string setCode, string collectorNumber, string? language = null) =>
-        MakeDelayedRequestAsync<Card>(async () => 
-            await ApiClient.GetAsync($"{CardsEndpoint}/{setCode}/{collectorNumber}/{language ?? ""}"));
+    public Task<Card> CardBySetCollectorNumberAsync(
+        string setCode, string collectorNumber, string? language = null,
+        CancellationToken cancellationToken = default) =>
+        MakeDelayedRequestAsync<Card>(async () =>
+            await ApiClient.GetAsync(
+                BuildSetCollectorNumberPath(setCode, collectorNumber, language), cancellationToken),
+            cancellationToken: cancellationToken);
 
-    public Task<Stream> CardBySetCollectorNumberImageAsync(string setCode, string collectorNumber, string? language = null,
-        CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+    public Task<Stream> CardBySetCollectorNumberImageAsync(
+        string setCode, string collectorNumber, string? language = null,
+        CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -168,16 +184,24 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/{setCode}/{collectorNumber}/{language ?? ""}",
-                queryParams));
-        });
+                QueryHelpers.AddQueryString(
+                    BuildSetCollectorNumberPath(setCode, collectorNumber, language), queryParams),
+                cancellationToken);
+        }, cancellationToken: cancellationToken);
 
-    public Task<Card> CardByMultiverseIdAsync(int multiverseId) =>
+    private static string BuildSetCollectorNumberPath(string setCode, string collectorNumber, string? language) =>
+        language is null
+            ? $"{CardsEndpoint}/{setCode}/{collectorNumber}"
+            : $"{CardsEndpoint}/{setCode}/{collectorNumber}/{language}";
+
+    public Task<Card> CardByMultiverseIdAsync(int multiverseId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/multiverse/{multiverseId}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/multiverse/{multiverseId}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByMultiverseIdAsync(
-        int multiverseId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        int multiverseId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -188,15 +212,18 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/multiverse/{multiverseId}", queryParams));
-        });
-    
-    public Task<Card> CardByMtgoIdAsync(int mtgo) =>
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/multiverse/{multiverseId}", queryParams),
+                cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    public Task<Card> CardByMtgoIdAsync(int mtgo, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/mtgo/{mtgo}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/mtgo/{mtgo}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByMtgoIdAsync(
-        int mtgo, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        int mtgo, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -207,15 +234,17 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/mtgo/{mtgo}", queryParams));
-        });
-    
-    public Task<Card> CardByArenaIdAsync(int arenaId) =>
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/mtgo/{mtgo}", queryParams), cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    public Task<Card> CardByArenaIdAsync(int arenaId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/arena/{arenaId}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/arena/{arenaId}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByArenaIdAsync(
-        int arenaId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        int arenaId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -226,15 +255,17 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/arena/{arenaId}", queryParams));
-        });
-    
-    public Task<Card> CardByTcgPlayerIdAsync(int tcgPlayerId) =>
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/arena/{arenaId}", queryParams), cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    public Task<Card> CardByTcgPlayerIdAsync(int tcgPlayerId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/tcgplayer/{tcgPlayerId}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/tcgplayer/{tcgPlayerId}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByTcgPlayerIdAsync(
-        int tcgPlayerId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        int tcgPlayerId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -245,15 +276,18 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/tcgplayer/{tcgPlayerId}", queryParams));
-        });
-    
-    public Task<Card> CardByCardMarketIdAsync(int cardMarketId) =>
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/tcgplayer/{tcgPlayerId}", queryParams),
+                cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    public Task<Card> CardByCardMarketIdAsync(int cardMarketId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/cardmarket/{cardMarketId}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/cardmarket/{cardMarketId}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByCardMarketIdAsync(
-        int cardMarketId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        int cardMarketId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -264,15 +298,18 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/cardmarket/{cardMarketId}", queryParams));
-        });
-    
-    public Task<Card> CardByScryfallIdAsync(Guid scryfallId) =>
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/cardmarket/{cardMarketId}", queryParams),
+                cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    public Task<Card> CardByScryfallIdAsync(Guid scryfallId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<Card>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}", cancellationToken),
+            cancellationToken: cancellationToken);
 
     public Task<Stream> CardImageByScryfallIdAsync(
-        Guid scryfallId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large) =>
+        Guid scryfallId, CardFaces cardFace = CardFaces.Front, ImageVersions imageVersion = ImageVersions.Large,
+        CancellationToken cancellationToken = default) =>
         MakeDelayedRequestImageAsync(async () =>
         {
             var queryParams = new Dictionary<string, string?>()
@@ -283,6 +320,8 @@ public class CardsClient : BaseApiClient
             };
 
             return await ApiClient.GetAsync(
-                QueryHelpers.AddQueryString($"{CardsEndpoint}/{scryfallId}", queryParams));
-        });
+                QueryHelpers.AddQueryString($"{CardsEndpoint}/{scryfallId}", queryParams), cancellationToken);
+        }, cancellationToken: cancellationToken);
+
+    private static string ToLowerString(bool value) => value ? "true" : "false";
 }

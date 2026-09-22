@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using FluentAssertions;
 using HelpfulThings.Connect.Scryfall.Clients.ApiClients;
 using HelpfulThings.Connect.Scryfall.Tests.Live.TestData;
 
@@ -9,16 +10,24 @@ public class DelayedRequestTest
     private readonly CardsClient _cardsClient = new();
 
     [Test]
-    public async Task DelayRequestTest()
+    public async Task ConsecutiveSearchRequestsAreAtLeastFiveHundredMillisecondsApart()
     {
-        var requestOne = new Stopwatch();
-        var requestTwo = new Stopwatch();
-        var total = new Stopwatch();
-        
-        total.Start(); requestOne.Start();
+        var total = Stopwatch.StartNew();
+        await _cardsClient.SearchAsync(TestCards.BlackLotus1StEd.Name!);
+        await _cardsClient.SearchAsync(TestCards.BlackLotus1StEd.Name!);
+        total.Stop();
+
+        total.Elapsed.Should().BeGreaterThanOrEqualTo(TimeSpan.FromMilliseconds(500));
+    }
+
+    [Test]
+    public async Task ConsecutiveScryfallIdRequestsAreAtLeastOneHundredMillisecondsApart()
+    {
+        var total = Stopwatch.StartNew();
         await _cardsClient.CardByScryfallIdAsync(TestCards.BlackLotus1StEd.ScryfallId);
-        requestOne.Stop(); requestTwo.Start();
         await _cardsClient.CardByScryfallIdAsync(TestCards.BlackLotus1StEd.ScryfallId);
-        requestTwo.Stop(); total.Stop();
+        total.Stop();
+
+        total.Elapsed.Should().BeGreaterThanOrEqualTo(TimeSpan.FromMilliseconds(100));
     }
 }

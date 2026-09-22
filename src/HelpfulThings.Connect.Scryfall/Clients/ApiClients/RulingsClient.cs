@@ -8,23 +8,33 @@ public class RulingsClient : BaseApiClient
     private const string CardsEndpoint = "cards";
     private const string RulingsEndpoint = "rulings";
 
-    public Task<ScryfallList<Ruling>> GetMultiverseCardRulingsAsync(int multiverseId) =>
+    public Task<ScryfallList<Ruling>> GetMultiverseCardRulingsAsync(
+        int multiverseId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Ruling>>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/multiverse/{multiverseId}/{RulingsEndpoint}"));
-    
-    public Task<ScryfallList<Ruling>> GetMtgoCardRulingsAsync(int mtgoId) =>
+            await ApiClient.GetAsync($"{CardsEndpoint}/multiverse/{multiverseId}/{RulingsEndpoint}", cancellationToken),
+            cancellationToken: cancellationToken);
+
+    public Task<ScryfallList<Ruling>> GetMtgoCardRulingsAsync(
+        int mtgoId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Ruling>>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/mtgo/{mtgoId}/{RulingsEndpoint}"));
-    
-    public Task<ScryfallList<Ruling>> GetArenaCardRulingsAsync(int arenaId) =>
+            await ApiClient.GetAsync($"{CardsEndpoint}/mtgo/{mtgoId}/{RulingsEndpoint}", cancellationToken),
+            cancellationToken: cancellationToken);
+
+    public Task<ScryfallList<Ruling>> GetArenaCardRulingsAsync(
+        int arenaId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Ruling>>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/arena/{arenaId}/{RulingsEndpoint}"));
-    
-    public Task<ScryfallList<Ruling>> GetRulingsBySetAndCollectorIdAsync(string setCode, string collectorId) =>
+            await ApiClient.GetAsync($"{CardsEndpoint}/arena/{arenaId}/{RulingsEndpoint}", cancellationToken),
+            cancellationToken: cancellationToken);
+
+    public Task<ScryfallList<Ruling>> GetRulingsBySetAndCollectorIdAsync(
+        string setCode, string collectorId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Ruling>>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/{setCode}/{collectorId}/{RulingsEndpoint}"));
-    
-    public Task<ScryfallList<Ruling>> GetRulingsByScryfallIdAsync(Guid scryfallId) =>
+            await ApiClient.GetAsync($"{CardsEndpoint}/{setCode}/{collectorId}/{RulingsEndpoint}", cancellationToken),
+            cancellationToken: cancellationToken);
+
+    public Task<ScryfallList<Ruling>> GetRulingsByScryfallIdAsync(
+        Guid scryfallId, CancellationToken cancellationToken = default) =>
         MakeDelayedRequestAsync<ScryfallList<Ruling>>(async () =>
-            await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}/{RulingsEndpoint}"));
+            await ApiClient.GetAsync($"{CardsEndpoint}/{scryfallId}/{RulingsEndpoint}", cancellationToken),
+            cancellationToken: cancellationToken);
 }
